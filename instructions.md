@@ -17,7 +17,7 @@ Your music library isn't stored directly by this package — Navidrome reads it 
 1. Install File Browser and/or Nextcloud from the StartOS marketplace first, and upload your music files there.
 2. Open Navidrome. A task will prompt you to run **Select Music Sources** — choose one or both services as the source of your library, and for each one, type the subfolder where your music lives. Only that subfolder is mounted — Navidrome does not see the rest of that service's storage.
    - **File Browser**: relative to its storage root, e.g. `Music`.
-   - **Nextcloud**: relative to its _volume_ root, which is Nextcloud's webroot — not its data folder. So the path must start with `data/`, then your Nextcloud username, then `files/`, e.g. `data/admin/files/Music`.
+   - **Nextcloud**: the path starts at Nextcloud's webroot, not its data folder — so it must begin with `data/`, then your Nextcloud username, then `files/`, e.g. `data/admin/files/Music`.
 3. Start the service. Navidrome scans the mounted folder(s) and builds your library.
 4. Open the **Web Interface**. On first visit, Navidrome asks you to create an admin account — pick a username and password; this is not generated for you.
 5. Log in and confirm your albums and artists appear.
