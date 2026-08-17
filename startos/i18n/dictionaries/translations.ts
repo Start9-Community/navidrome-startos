@@ -49,6 +49,7 @@ export default {
     44: 'No se pudo encontrar "${subpath}" en ${label}. Comprueba la ruta y que esté instalado, y vuelve a intentarlo.',
     45: 'Debe ser un número seguido de s, m o h (p. ej. "45m", "2h" o "1h30m").',
     46: 'Deben ser 5 campos cron separados por espacios (minuto hora día mes día-semana), cada uno un número, * o un */paso, p. ej. "*/2 * * * *".',
+    47: 'Ese archivo no es una base de datos SQLite.',
   },
   de_DE: {
     0: 'Navidrome wird gestartet!',
@@ -98,6 +99,7 @@ export default {
     44: 'Der Pfad "${subpath}" wurde in ${label} nicht gefunden. Überprüfe den Pfad und ob es installiert ist, und versuche es erneut.',
     45: 'Muss eine Zahl gefolgt von s, m oder h sein (z. B. "45m", "2h" oder "1h30m").',
     46: 'Muss 5 durch Leerzeichen getrennte Cron-Felder sein (Minute Stunde Tag Monat Wochentag), jeweils eine Zahl, * oder ein */Schritt, z. B. "*/2 * * * *".',
+    47: 'Diese Datei ist keine SQLite-Datenbank.',
   },
   pl_PL: {
     0: 'Uruchamianie Navidrome!',
@@ -147,6 +149,7 @@ export default {
     44: 'Nie można znaleźć "${subpath}" w ${label}. Sprawdź ścieżkę i czy jest zainstalowane, a następnie spróbuj ponownie.',
     45: 'Musi być liczbą, po której następuje s, m lub h (np. "45m", "2h" lub "1h30m").',
     46: 'Musi to być 5 pól cron oddzielonych spacjami (minuta godzina dzień miesiąc dzień-tygodnia), każde to liczba, * lub */krok, np. "*/2 * * * *".',
+    47: 'Ten plik nie jest bazą danych SQLite.',
   },
   fr_FR: {
     0: 'Démarrage de Navidrome !',
@@ -196,5 +199,6 @@ export default {
     44: 'Impossible de trouver "${subpath}" dans ${label}. Vérifiez le chemin et qu\'il est installé, puis réessayez.',
     45: 'Doit être un nombre suivi de s, m ou h (p. ex. "45m", "2h" ou "1h30m").',
     46: 'Doit être 5 champs cron séparés par des espaces (minute heure jour mois jour-semaine), chacun un nombre, * ou un */pas, p. ex. "*/2 * * * *".',
+    47: "Ce fichier n'est pas une base de données SQLite.",
   },
 } satisfies Record<string, LangDict>
