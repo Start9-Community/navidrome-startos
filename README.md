@@ -165,7 +165,6 @@ The music library is **not** backed up, because it is not this package's data. R
 1. **The library must live in File Browser or Nextcloud.** A StartOS package cannot mount an arbitrary host path, so there is no way to point Navidrome at anything else.
 2. **`/music` is read-only**, so Navidrome cannot write embedded tags, rename files, or fix permissions — matching upstream's own read-only-mount recommendation. Manage the files from the source service.
 3. **Navidrome's multi-library feature is not configured here.** Both mounted sources land in the single default library as sibling folders. Additional libraries can still be added from Navidrome's own Settings → Libraries.
-4. **`multi-scrobbler` is not currently published to any StartOS registry**, so the scrobbling toggle names a dependency that cannot be installed from the marketplace.
 
 ---
 
