@@ -8,7 +8,7 @@
   "dependencies": {
     "@start9labs/start-sdk": "2.0.9",
     "filebrowser-startos": "github:Start9Labs/filebrowser-startos#next",
-    "multi-scrobbler-startos": "github:Jolls/multi-scrobbler-startos#master",
+    "multi-scrobbler-startos": "github:Start9-Community/multi-scrobbler-startos#next",
     "nextcloud-startos": "github:Start9Labs/nextcloud-startos#next"
   },
   "overrides": {

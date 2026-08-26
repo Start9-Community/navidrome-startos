@@ -45,7 +45,7 @@ export const manifest = setupManifest({
       optional: true,
       metadata: {
         title: 'Multi-Scrobbler',
-        icon: 'https://raw.githubusercontent.com/Jolls/multi-scrobbler-startos/refs/heads/master/icon.svg',
+        icon: 'https://raw.githubusercontent.com/Start9-Community/multi-scrobbler-startos/refs/heads/master/icon.svg',
       },
     },
   },
