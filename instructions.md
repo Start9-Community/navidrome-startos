@@ -17,7 +17,7 @@ Your music library isn't stored directly by this package — Navidrome reads it 
 1. Install File Browser and/or Nextcloud from the StartOS marketplace first, and upload your music files there.
 2. Open Navidrome. A task will prompt you to run **Select Music Sources** — choose one or both services as the source of your library, and for each one, type the subfolder where your music lives. Only that subfolder is mounted — Navidrome does not see the rest of that service's storage.
    - **File Browser**: relative to its storage root, e.g. `Music`.
-   - **Nextcloud**: relative to its *volume* root, which is Nextcloud's webroot — not its data folder. So the path must start with `data/`, then your Nextcloud username, then `files/`, e.g. `data/admin/files/Music`.
+   - **Nextcloud**: the path starts at Nextcloud's webroot, not its data folder — so it must begin with `data/`, then your Nextcloud username, then `files/`, e.g. `data/admin/files/Music`.
 3. Start the service. Navidrome scans the mounted folder(s) and builds your library.
 4. Open the **Web Interface**. On first visit, Navidrome asks you to create an admin account — pick a username and password; this is not generated for you.
 5. Log in and confirm your albums and artists appear.
@@ -34,7 +34,7 @@ Copy this interface's URL into a Subsonic-compatible client (most mobile and des
 
 ### Select Music Sources
 
-Run this again any time you want to add or change which service(s) Navidrome reads your library from, or the subfolder within them. Restart the service afterward for the change to take effect.
+Run this again any time you want to add or change which service(s) Navidrome reads your library from, or the subfolder within them. Navidrome restarts on its own to pick up the change.
 
 ### Import Existing Database
 
@@ -52,12 +52,12 @@ This action bundles settings that don't have an equivalent in Navidrome's own ad
 - **Log Level**: how verbose Navidrome's logs are, viewable from this service's Logs tab. Turn up to `debug` or `trace` when troubleshooting; leave at `info` otherwise.
 - **Session Timeout**: how long you can stay idle in the web UI before being logged out, e.g. `24h` or `45m`. Leave blank to use Navidrome's own default (48 hours).
 
-Restart the service afterward for any of these changes to take effect.
+Saving restarts Navidrome automatically, so the change takes effect within a few seconds.
 
 The scrobbling toggle alone is not enough to make scrobbles land — you still have to do two things by hand, in the two apps' own UIs (not this action, and not automated by this package):
 
 1. In Multi-Scrobbler, add (or check for) a source of type `endpointlz` for Navidrome, with a `data.token` value — any string you make up, it's a shared secret you're inventing, not one issued by either app.
-2. In Navidrome, log in as the user you want to scrobble, go to **Settings → your user → Scrobble to ListenBrainz**, and paste the *exact same* token string from step 1.
+2. In Navidrome, log in as the user you want to scrobble, go to **Settings → your user → Scrobble to ListenBrainz**, and paste the _exact same_ token string from step 1.
 
 The two tokens must match — Multi-Scrobbler accepts a submission as coming from that source only when its token matches what's configured. This is a one-time, per-user setup step.
 

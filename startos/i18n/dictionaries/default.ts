@@ -58,6 +58,8 @@ const dict = {
   // actions/settings.ts
   'Must be a number followed by s, m, or h (e.g. "45m", "2h", or "1h30m").': 45,
   'Must be 5 space-separated cron fields (minute hour day month weekday), each a number, *, or a */step, e.g. "*/2 * * * *".': 46,
+  // actions/importDatabase.ts
+  'That file is not a SQLite database.': 47,
 } as const
 
 /**

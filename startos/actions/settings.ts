@@ -4,6 +4,13 @@ import { sdk } from '../sdk'
 
 const { InputSpec, Value } = sdk
 
+// A `patterns` entry only constrains the form: an action invoked over the API
+// reaches the handler unvalidated, and either of these values rejected by
+// Navidrome's own config parser crash-loops the daemon on the next start.
+const CRON_5_FIELD =
+  '^(?:\\*|[0-9]+(?:-[0-9]+)?)(?:/[0-9]+)?(?:,(?:\\*|[0-9]+(?:-[0-9]+)?)(?:/[0-9]+)?)*(?:\\s+(?:\\*|[0-9]+(?:-[0-9]+)?)(?:/[0-9]+)?(?:,(?:\\*|[0-9]+(?:-[0-9]+)?)(?:/[0-9]+)?)*){4}$'
+const GO_DURATION = '^([0-9]+(s|m|h))+$'
+
 export const inputSpec = InputSpec.of({
   scrobbleToMultiScrobbler: Value.toggle({
     name: i18n('Scrobble to Multi-Scrobbler'),
@@ -29,8 +36,7 @@ export const inputSpec = InputSpec.of({
     placeholder: '0 */6 * * *',
     patterns: [
       {
-        regex:
-          '^(?:\\*|[0-9]+(?:-[0-9]+)?)(?:/[0-9]+)?(?:,(?:\\*|[0-9]+(?:-[0-9]+)?)(?:/[0-9]+)?)*(?:\\s+(?:\\*|[0-9]+(?:-[0-9]+)?)(?:/[0-9]+)?(?:,(?:\\*|[0-9]+(?:-[0-9]+)?)(?:/[0-9]+)?)*){4}$',
+        regex: CRON_5_FIELD,
         description: i18n(
           'Must be 5 space-separated cron fields (minute hour day month weekday), each a number, *, or a */step, e.g. "*/2 * * * *".',
         ),
@@ -61,7 +67,7 @@ export const inputSpec = InputSpec.of({
     placeholder: '48h',
     patterns: [
       {
-        regex: '^([0-9]+(s|m|h))+$',
+        regex: GO_DURATION,
         description: i18n(
           'Must be a number followed by s, m, or h (e.g. "45m", "2h", or "1h30m").',
         ),
@@ -96,12 +102,30 @@ export const settings = sdk.Action.withInput(
   },
 
   async ({ effects, input }) => {
+    const scannerSchedule = input.scannerSchedule?.trim() || null
+    const sessionTimeout = input.sessionTimeout?.trim() || null
+
+    if (scannerSchedule && !new RegExp(CRON_5_FIELD).test(scannerSchedule)) {
+      throw new Error(
+        i18n(
+          'Must be 5 space-separated cron fields (minute hour day month weekday), each a number, *, or a */step, e.g. "*/2 * * * *".',
+        ),
+      )
+    }
+    if (sessionTimeout && !new RegExp(GO_DURATION).test(sessionTimeout)) {
+      throw new Error(
+        i18n(
+          'Must be a number followed by s, m, or h (e.g. "45m", "2h", or "1h30m").',
+        ),
+      )
+    }
+
     await store.merge(effects, {
       scrobbleToMultiScrobbler: input.scrobbleToMultiScrobbler,
       recentlyAddedByModTime: input.recentlyAddedByModTime,
-      scannerSchedule: input.scannerSchedule?.trim() || null,
+      scannerSchedule,
       logLevel: input.logLevel,
-      sessionTimeout: input.sessionTimeout?.trim() || null,
+      sessionTimeout,
     })
   },
 )

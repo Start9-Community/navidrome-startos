@@ -12,8 +12,20 @@ admin credentials", "expose a web UI") to the constructs, the reference pages, a
 package to copy. Find the recipe before you read this package's neighbours: a package you reach by
 grepping may be non-conformant, and the recipe outranks it.
 
-Work this package's `TODO.md` from top to bottom. Keep `README.md` (architecture, for developers and LLMs) and `instructions.md` (end-user docs) in sync with your changes.
+Freshly scaffolded? Work the
+[New Package Checklist](../start-technologies/projects/start-sdk/docs/src/new-package-checklist.md)
+(or <https://docs.start9.com/packaging/new-package-checklist.html>) from top to bottom. It is a
+guide page, not a file in this repo — read it, don't copy it in.
 
-## Inspecting a running install
+Keep `README.md` (technical reference for an AI support or administering agent) and
+`instructions.md` (end-user docs) in sync with your changes.
 
-To run a command inside a service's container (read its generated config, grep app logs), use `start-cli package attach <id> -n <subcontainer-name> -- <cmd>`. Select the subcontainer by **name** with `-n` (the name passed to `SubContainer.of` in `main.ts`, e.g. `-n web`) or by image with `-i`. Note: `-s/--subcontainer` matches the internal **Guid**, not the name, so passing a name to `-s` fails with "no matching subcontainers". A service with more than one subcontainer requires a selector; with none given, `attach` falls back to an interactive picker that panics in a non-TTY shell — that's the missing selector, not a TTY requirement.
+**Bugs and feature requests are GitHub issues on this repo** — file them as you find them.
+Don't record work in the repo instead: no `TODO.md`, no `NOTES.md`, no `PLAN.md`. What you
+verified, tried, and decided belongs in the commit message and the PR body.
+
+## This repo
+
+- **Three sibling packages are npm dependencies, for types and constants only.** `filebrowser-startos` and `nextcloud-startos` supply the manifest types that `mountDependency<typeof …>` needs; `multi-scrobbler-startos` supplies `uiHostId`/`uiPort`. Don't hardcode a dependency's volume id, host id, or port — read it from its source, so a rename there breaks the build instead of the runtime.
+- **`multi-scrobbler-startos` is not in either registry.** It is pinned to a contributor's personal repo, so the scrobbling toggle names a dependency no user can currently install, and CI's `npm ci` depends on that repo staying reachable. Bringing it into `Start9-Community` is the fix; don't paper over it by inlining the constants.
+- **`/music` is never this package's volume.** It exists only as read-only mounts of another service's data, scoped to a user-chosen subfolder. Anything that would write there is wrong by construction.

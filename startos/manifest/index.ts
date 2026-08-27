@@ -11,30 +11,17 @@ export const manifest = setupManifest({
   id: 'navidrome',
   title: 'Navidrome',
   license: 'GPL-3.0',
-  packageRepo: 'https://github.com/Jolls/navidrome-startos',
+  packageRepo: 'https://github.com/Start9-Community/navidrome-startos',
   upstreamRepo: 'https://github.com/navidrome/navidrome',
   marketingUrl: 'https://www.navidrome.org',
   donationUrl: 'https://github.com/sponsors/deluan',
   description: { short, long },
-  // 'main' holds Navidrome's database and cache (mounted at /data). The music
-  // library itself is not our volume — it's mounted read-only from whichever
-  // dependency the user selects (see startos/main.ts, startos/dependencies.ts).
   volumes: ['main'],
   images: {
-    // Confirmed on Docker Hub 2026-07-28: deluan/navidrome:0.63.2 ships amd64
-    // and arm64 (see UPDATING.md for the recheck command).
     navidrome: {
       source: { dockerTag: 'deluan/navidrome:0.63.2' },
       arch: ['x86_64', 'aarch64'],
     },
-  },
-  alerts: {
-    install: null,
-    update: null,
-    uninstall: null,
-    restore: null,
-    start: null,
-    stop: null,
   },
   dependencies: {
     filebrowser: {
@@ -58,7 +45,7 @@ export const manifest = setupManifest({
       optional: true,
       metadata: {
         title: 'Multi-Scrobbler',
-        icon: 'https://raw.githubusercontent.com/Jolls/multi-scrobbler-startos/refs/heads/master/icon.svg',
+        icon: 'https://raw.githubusercontent.com/Start9-Community/multi-scrobbler-startos/refs/heads/master/icon.svg',
       },
     },
   },

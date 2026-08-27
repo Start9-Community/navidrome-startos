@@ -37,6 +37,14 @@ export const importDatabase = sdk.Action.withInput(
 
   async ({ effects, input }) => {
     const uploaded = await fs.readFile(input.databaseFile.path)
+
+    // The `.db` extension filter only constrains the form. Overwriting the
+    // database with something that isn't one is not recoverable from here, so
+    // check SQLite's own header before committing to it.
+    if (!uploaded.subarray(0, 16).equals(Buffer.from('SQLite format 3\0'))) {
+      throw new Error(i18n('That file is not a SQLite database.'))
+    }
+
     await sdk.volumes.main.writeFile('navidrome.db', uploaded)
 
     // Stale WAL/SHM files from the previous database don't match the

@@ -23,10 +23,8 @@ export const main = sdk.setupMain(async ({ effects }) => {
     sessionTimeout,
   } = (await store.read().const(effects)) || {}
 
-  // "localhost" inside Navidrome's container refers to its own container, not
-  // Multi-Scrobbler's — resolve the bridge address that actually reaches it.
-  // Absent means absent (dependency not installed/running): leave the env
-  // vars out entirely rather than fabricating an address (service-to-service.md).
+  // Resolves to null when Multi-Scrobbler is absent or stopped; the env vars
+  // below are then omitted rather than pointed at a fabricated address.
   const multiScrobblerAddress = scrobbleToMultiScrobbler
     ? await sdk.host
         .getBridgeAddress(effects, {
@@ -49,12 +47,9 @@ export const main = sdk.setupMain(async ({ effects }) => {
     readonly: false,
   })
 
-  // Each selected source is mounted, scoped to its configured subfolder, as
-  // its own subfolder under /music. Navidrome scans /music (ND_MUSICFOLDER,
-  // the image default) recursively as a single library, so multiple sources
-  // simply appear as sibling folders — no need for Navidrome's separate
-  // multi-library feature. The media-sources action requires a subpath for
-  // every selected source, so these are never null here.
+  // Navidrome scans /music recursively as one library, so each source becomes a
+  // sibling folder under it. The media-sources action requires a subpath for
+  // every selected source, so a null here means store.json was hand-edited.
   if (mediaSources.includes('filebrowser')) {
     if (!filebrowserSubpath) {
       throw new Error(
@@ -97,22 +92,15 @@ export const main = sdk.setupMain(async ({ effects }) => {
       'navidrome-sub',
     ),
     exec: {
-      // The image's ENTRYPOINT is the navidrome binary itself — no bundled
-      // init system, so runAsInit is not needed.
       command: sdk.useEntrypoint(),
       env: {
-        // Matches the image's own default (confirmed via `docker image
-        // inspect deluan/navidrome`) and the mountpoint mounts is built
-        // against above — set explicitly so the two stay coupled instead of
-        // relying on the image default silently matching our mount target.
+        // Must stay equal to the /music mountpoint the mounts above are built against.
         ND_MUSICFOLDER: '/music',
         ...(multiScrobblerAddress
           ? {
               ND_LISTENBRAINZ_ENABLED: 'true',
-              // Multi-Scrobbler exposes a ListenBrainz-compatible submission
-              // endpoint under this path, matching the real listenbrainz.org
-              // API's own base path (confirmed against Navidrome's
-              // ListenBrainz.BaseURL default, https://api.listenbrainz.org/1/).
+              // The /1/ suffix mirrors listenbrainz.org's own API base path,
+              // which is what Navidrome appends its endpoints to.
               ND_LISTENBRAINZ_BASEURL: `http://${multiScrobblerAddress}/1/`,
             }
           : {}),

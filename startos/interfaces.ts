@@ -21,9 +21,8 @@ export const setInterfaces = sdk.setupInterfaces(async ({ effects }) => {
     query: {},
   })
 
-  // Same origin and port as the web UI — Navidrome serves its Subsonic-compatible
-  // API alongside the player. Exported separately so users can copy a
-  // dedicated URL into Subsonic-compatible mobile/desktop apps.
+  // Same origin and port as the web UI; split out so a client app gets its own
+  // copyable URL.
   const api = sdk.createInterface(effects, {
     name: i18n('Subsonic API'),
     id: 'api',

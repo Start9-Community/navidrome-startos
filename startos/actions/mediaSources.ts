@@ -114,11 +114,8 @@ export const mediaSources = sdk.Action.withInput(
   },
 )
 
-// Bind-mounting a nonexistent subpath fails outright (the OS only creates the
-// mount target, not the source) — so mounting the configured subpath into a
-// throwaway subcontainer is a cheap, reliable existence check. Catching this
-// here, before the config is saved, turns a confusing "web UI never comes up"
-// daemon-startup failure into an immediate, actionable validation error.
+// Bind-mounting a nonexistent subpath fails outright — the OS creates the mount
+// target, never the source — which makes a throwaway mount an existence check.
 async function checkSubpathExists(
   effects: T.Effects,
   {
