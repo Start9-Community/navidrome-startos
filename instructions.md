@@ -10,13 +10,13 @@
 
 Navidrome exposes two interfaces on the service page: a **Web Interface** for the browser-based player, and a **Subsonic API** URL you paste into any Subsonic-compatible app instead.
 
-Your music library isn't stored directly by this package — Navidrome reads it from another service you already have installed (File Browser or Nextcloud), mounted read-only. You choose which one(s) with the **Select Music Sources** action.
+Your music library isn't stored directly by this package — Navidrome reads it from another service you already have installed (FileBrowser Quantum or Nextcloud), mounted read-only. You choose which one(s) with the **Select Music Sources** action.
 
 ## Getting set up
 
-1. Install File Browser and/or Nextcloud from the StartOS marketplace first, and upload your music files there.
+1. Install FileBrowser Quantum and/or Nextcloud from the StartOS marketplace first, and upload your music files there.
 2. Open Navidrome. A task will prompt you to run **Select Music Sources** — choose one or both services as the source of your library, and for each one, type the subfolder where your music lives. Only that subfolder is mounted — Navidrome does not see the rest of that service's storage.
-   - **File Browser**: relative to its storage root, e.g. `Music`.
+   - **FileBrowser Quantum**: relative to its storage root, e.g. `Music`.
    - **Nextcloud**: the path starts at Nextcloud's webroot, not its data folder — so it must begin with `data/`, then your Nextcloud username, then `files/`, e.g. `data/admin/files/Music`.
 3. Start the service. Navidrome scans the mounted folder(s) and builds your library.
 4. Open the **Web Interface**. On first visit, Navidrome asks you to create an admin account — pick a username and password; this is not generated for you.
@@ -40,7 +40,7 @@ Run this again any time you want to add or change which service(s) Navidrome rea
 
 If you're moving from another Navidrome instance (StartOS or otherwise), you can upload its `navidrome.db` file to replace this instance's database instead of rescanning from scratch — your library, playlists, users, and play history all carry over.
 
-The service must be **stopped** to run this action. Before running it, make sure the File Browser/Nextcloud subfolder(s) set in **Select Music Sources** are identical to the ones the source instance used — Navidrome's database records each track by its exact scanned path, so a different subfolder means the imported database won't match what's mounted here, and tracks will show as missing until you rescan. This does not corrupt anything; it's recoverable by re-running **Select Music Sources** with the matching paths, or by rescanning.
+The service must be **stopped** to run this action. Before running it, make sure the FileBrowser Quantum/Nextcloud subfolder(s) set in **Select Music Sources** are identical to the ones the source instance used — Navidrome's database records each track by its exact scanned path, so a different subfolder means the imported database won't match what's mounted here, and tracks will show as missing until you rescan. This does not corrupt anything; it's recoverable by re-running **Select Music Sources** with the matching paths, or by rescanning.
 
 ### Configure Navidrome
 
@@ -63,4 +63,4 @@ The two tokens must match — Multi-Scrobbler accepts a submission as coming fro
 
 ## Limitations
 
-Because your music is mounted read-only from another service, Navidrome cannot write tag edits, rename files, or fix file permissions on your library — manage the files themselves from File Browser or Nextcloud directly.
+Because your music is mounted read-only from another service, Navidrome cannot write tag edits, rename files, or fix file permissions on your library — manage the files themselves from FileBrowser Quantum or Nextcloud directly.

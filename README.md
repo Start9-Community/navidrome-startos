@@ -62,7 +62,7 @@ One volume for Navidrome's own state, plus a music tree that belongs to somebody
 
 The two sources differ in what a subfolder path is relative to, which is the single most common setup mistake:
 
-- **File Browser** mounts its `data` volume 1:1 at `/srv` in its own container, so the path is relative to its storage root directly — `Music`.
+- **FileBrowser Quantum** mounts its `data` volume 1:1 at `/srv` in its own container, so the path is relative to its storage root directly — `Music`.
 - **Nextcloud** mounts its `nextcloud` volume at its **webroot**, not its data folder, so the path must start with `data/`, then the Nextcloud username, then `files/` — `data/admin/files/Music`. A bare `<username>/files/…` path is missing the `data/` prefix; the bind mount then fails with `mount exited with exit status: 32`, because StartOS creates the mount target but never the source.
 
 ## File Models
@@ -158,11 +158,11 @@ It is a port check, not an HTTP check, so it reports ready as soon as Navidrome 
 
 The `main` volume is copied wholesale — `sdk.Backups.ofVolumes('main')`. That captures the database, the cache, and `store.json`, so the media-source selection and every setting survive a restore.
 
-The music library is **not** backed up, because it is not this package's data. Restoring Navidrome onto a server whose File Browser or Nextcloud has not also been restored gives you a database full of tracks whose files are missing; restore the source service first. No custom `restoreInit` logic runs beyond the SDK default.
+The music library is **not** backed up, because it is not this package's data. Restoring Navidrome onto a server whose FileBrowser Quantum or Nextcloud has not also been restored gives you a database full of tracks whose files are missing; restore the source service first. No custom `restoreInit` logic runs beyond the SDK default.
 
 ## Limitations and Differences
 
-1. **The library must live in File Browser or Nextcloud.** A StartOS package cannot mount an arbitrary host path, so there is no way to point Navidrome at anything else.
+1. **The library must live in FileBrowser Quantum or Nextcloud.** A StartOS package cannot mount an arbitrary host path, so there is no way to point Navidrome at anything else.
 2. **`/music` is read-only**, so Navidrome cannot write embedded tags, rename files, or fix permissions — matching upstream's own read-only-mount recommendation. Manage the files from the source service.
 3. **Navidrome's multi-library feature is not configured here.** Both mounted sources land in the single default library as sibling folders. Additional libraries can still be added from Navidrome's own Settings → Libraries.
 

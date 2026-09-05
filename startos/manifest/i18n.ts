@@ -24,11 +24,11 @@ export const long = {
 }
 
 export const filebrowserDescription = {
-  en_US: 'Used to get music from File Browser',
-  es_ES: 'Usado para obtener música de File Browser',
-  de_DE: 'Wird verwendet, um Musik aus File Browser zu beziehen',
-  pl_PL: 'Używany do pobierania muzyki z File Browser',
-  fr_FR: 'Utilisé pour récupérer de la musique depuis File Browser',
+  en_US: 'Used to get music from FileBrowser Quantum',
+  es_ES: 'Usado para obtener música de FileBrowser Quantum',
+  de_DE: 'Wird verwendet, um Musik aus FileBrowser Quantum zu beziehen',
+  pl_PL: 'Używany do pobierania muzyki z FileBrowser Quantum',
+  fr_FR: 'Utilisé pour récupérer de la musique depuis FileBrowser Quantum',
 }
 
 export const nextcloudDescription = {

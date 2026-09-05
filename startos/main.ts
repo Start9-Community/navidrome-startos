@@ -54,7 +54,7 @@ export const main = sdk.setupMain(async ({ effects }) => {
     if (!filebrowserSubpath) {
       throw new Error(
         i18n(
-          'File Browser is selected as a music source but has no subfolder configured. Re-run Select Music Sources.',
+          'FileBrowser Quantum is selected as a music source but has no subfolder configured. Re-run Select Music Sources.',
         ),
       )
     }
