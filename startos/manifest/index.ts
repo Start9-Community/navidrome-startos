@@ -29,7 +29,7 @@ export const manifest = setupManifest({
       optional: true,
       metadata: {
         title: 'FileBrowser Quantum',
-        icon: 'https://raw.githubusercontent.com/Start9Labs/filebrowser-startos/cdb4ff27ea743229ed057ff384be37c903c0f29c/icon.svg',
+        icon: 'https://raw.githubusercontent.com/Start9Labs/filebrowser-quantum-startos/e936a6c85a97b930b43cad5e9c0dd4898a2df567/icon.svg',
       },
     },
     nextcloud: {
