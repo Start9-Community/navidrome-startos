@@ -24,7 +24,7 @@ export const importDatabase = sdk.Action.withInput(
       "Replace Navidrome's database with a previously exported navidrome.db file.",
     ),
     warning: i18n(
-      'This permanently replaces the current database and cannot be undone. Navidrome stores each track under the exact path it was scanned at — the imported database only matches your library if the File Browser / Nextcloud subfolder(s) configured in Select Music Sources are identical to the ones the source instance used. A mismatch will not corrupt anything, but tracks will show as missing until you re-scan.',
+      'This permanently replaces the current database and cannot be undone. Navidrome stores each track under the exact path it was scanned at — the imported database only matches your library if the FileBrowser Quantum / Nextcloud subfolder(s) configured in Select Music Sources are identical to the ones the source instance used. A mismatch will not corrupt anything, but tracks will show as missing until you re-scan.',
     ),
     allowedStatuses: 'only-stopped',
     group: null,

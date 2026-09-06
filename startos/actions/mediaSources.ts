@@ -11,16 +11,16 @@ export const inputSpec = InputSpec.of({
   mediaSources: Value.multiselect({
     name: i18n('Music Sources'),
     values: {
-      filebrowser: i18n('File Browser'),
+      filebrowser: i18n('FileBrowser Quantum'),
       nextcloud: i18n('Nextcloud'),
     },
     default: [],
     minLength: 1,
   }),
   filebrowserSubpath: Value.text({
-    name: i18n('File Browser Subfolder'),
+    name: i18n('FileBrowser Quantum Subfolder'),
     description: i18n(
-      'Path within File Browser\'s storage to scan for music, relative to its root (e.g. "Music"). Required when File Browser is selected above.',
+      'Path within FileBrowser Quantum\'s storage to scan for music, relative to its root (e.g. "Music"). Required when FileBrowser Quantum is selected above.',
     ),
     required: false,
     default: null,
@@ -67,7 +67,7 @@ export const mediaSources = sdk.Action.withInput(
     if (input.mediaSources.includes('filebrowser') && !filebrowserSubpath) {
       throw new Error(
         i18n(
-          'A File Browser subfolder is required when File Browser is selected as a music source.',
+          'A FileBrowser Quantum subfolder is required when FileBrowser Quantum is selected as a music source.',
         ),
       )
     }
@@ -81,7 +81,7 @@ export const mediaSources = sdk.Action.withInput(
 
     if (input.mediaSources.includes('filebrowser')) {
       await checkSubpathExists(effects, {
-        label: i18n('File Browser'),
+        label: i18n('FileBrowser Quantum'),
         subpath: filebrowserSubpath!,
         mount: sdk.Mounts.of().mountDependency<typeof filebrowserManifest>({
           dependencyId: 'filebrowser',
