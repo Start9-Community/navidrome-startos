@@ -23,6 +23,14 @@ export const long = {
     'Navidrome diffuse votre propre bibliothèque musicale depuis votre serveur StartOS, avec un lecteur web et une API compatible Subsonic pour les applications mobiles et de bureau.',
 }
 
+export const nextexplorerDescription = {
+  en_US: 'Used to get music from NextExplorer',
+  es_ES: 'Usado para obtener música de NextExplorer',
+  de_DE: 'Wird verwendet, um Musik aus NextExplorer zu beziehen',
+  pl_PL: 'Używany do pobierania muzyki z NextExplorer',
+  fr_FR: 'Utilisé pour récupérer de la musique depuis NextExplorer',
+}
+
 export const filebrowserDescription = {
   en_US: 'Used to get music from FileBrowser Quantum',
   es_ES: 'Usado para obtener música de FileBrowser Quantum',

@@ -2,7 +2,10 @@ import { FileHelper, z } from '@start9labs/start-sdk'
 import { sdk } from '../sdk'
 
 const shape = z.object({
-  mediaSources: z.array(z.enum(['filebrowser', 'nextcloud'])).catch([]),
+  mediaSources: z
+    .array(z.enum(['nextexplorer', 'filebrowser', 'nextcloud']))
+    .catch([]),
+  nextexplorerSubpath: z.string().nullable().catch(null),
   filebrowserSubpath: z.string().nullable().catch(null),
   nextcloudSubpath: z.string().nullable().catch(null),
   scrobbleToMultiScrobbler: z.boolean().catch(false),

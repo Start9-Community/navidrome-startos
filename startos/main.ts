@@ -4,6 +4,7 @@ import {
   uiPort as multiScrobblerUiPort,
 } from 'multi-scrobbler-startos/startos/utils'
 import { manifest as nextcloudManifest } from 'nextcloud-startos/startos/manifest'
+import { manifest as nextexplorerManifest } from 'nextexplorer-startos/startos/manifest'
 import { store } from './fileModels/store.json'
 import { i18n } from './i18n'
 import { sdk } from './sdk'
@@ -14,6 +15,7 @@ export const main = sdk.setupMain(async ({ effects }) => {
 
   const {
     mediaSources,
+    nextexplorerSubpath,
     filebrowserSubpath,
     nextcloudSubpath,
     scrobbleToMultiScrobbler,
@@ -50,6 +52,23 @@ export const main = sdk.setupMain(async ({ effects }) => {
   // Navidrome scans /music recursively as one library, so each source becomes a
   // sibling folder under it. The media-sources action requires a subpath for
   // every selected source, so a null here means store.json was hand-edited.
+  if (mediaSources.includes('nextexplorer')) {
+    if (!nextexplorerSubpath) {
+      throw new Error(
+        i18n(
+          'NextExplorer is selected as a music source but has no subfolder configured. Re-run Select Music Sources.',
+        ),
+      )
+    }
+    mounts = mounts.mountDependency<typeof nextexplorerManifest>({
+      dependencyId: 'nextexplorer',
+      volumeId: 'data',
+      subpath: nextexplorerSubpath,
+      mountpoint: '/music/nextexplorer',
+      readonly: true,
+    })
+  }
+
   if (mediaSources.includes('filebrowser')) {
     if (!filebrowserSubpath) {
       throw new Error(
