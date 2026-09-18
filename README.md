@@ -53,15 +53,16 @@ The image has no bundled init system, so `runAsInit` is not used.
 
 One volume for Navidrome's own state, plus a music tree that belongs to somebody else.
 
-| Path     | Source                         | Contents                                                                     |
-| -------- | ------------------------------ | ---------------------------------------------------------------------------- |
-| `/data`  | `main` volume                  | SQLite database, cache, generated `navidrome.toml`, `store.json`             |
-| `/music` | dependency volumes (read-only) | One subfolder per selected source (`/music/filebrowser`, `/music/nextcloud`) |
+| Path     | Source                         | Contents                                                                                            |
+| -------- | ------------------------------ | --------------------------------------------------------------------------------------------------- |
+| `/data`  | `main` volume                  | SQLite database, cache, generated `navidrome.toml`, `store.json`                                    |
+| `/music` | dependency volumes (read-only) | One subfolder per selected source (`/music/nextexplorer`, `/music/filebrowser`, `/music/nextcloud`) |
 
 `/music` is **not** a StartOS volume of this package. Each selected source is mounted scoped to a user-chosen subfolder of that dependency's volume, and Navidrome scans `/music` recursively as one library, so multiple sources appear as sibling folders.
 
-The two sources differ in what a subfolder path is relative to, which is the single most common setup mistake:
+The sources differ in what a subfolder path is relative to, which is the single most common setup mistake:
 
+- **NextExplorer** mounts its `data` volume at `/mnt` in its own container and shows each of its immediate subdirectories as a drive, so the path starts with the drive name — `Files/Music` for the default drive.
 - **FileBrowser Quantum** mounts its `data` volume 1:1 at `/srv` in its own container, so the path is relative to its storage root directly — `Music`.
 - **Nextcloud** mounts its `nextcloud` volume at its **webroot**, not its data folder, so the path must start with `data/`, then the Nextcloud username, then `files/` — `data/admin/files/Music`. A bare `<username>/files/…` path is missing the `data/` prefix; the bind mount then fails with `mount exited with exit status: 32`, because StartOS creates the mount target but never the source.
 
@@ -79,10 +80,11 @@ The environment variables built from it are consumed by Navidrome **only at laun
 
 ## Dependencies
 
-Three, all optional, and all declared conditionally — a dependency this package does not currently need is not declared at all, so its card does not appear.
+Four, all optional, and all declared conditionally — a dependency this package does not currently need is not declared at all, so its card does not appear.
 
 | Dependency        | Kind      | Declared when                         | Mount                                              |
 | ----------------- | --------- | ------------------------------------- | -------------------------------------------------- |
+| `nextexplorer`    | `exists`  | selected in **Select Music Sources**  | `data` volume → `/music/nextexplorer`, read-only   |
 | `filebrowser`     | `exists`  | selected in **Select Music Sources**  | `data` volume → `/music/filebrowser`, read-only    |
 | `nextcloud`       | `exists`  | selected in **Select Music Sources**  | `nextcloud` volume → `/music/nextcloud`, read-only |
 | `multi-scrobbler` | `running` | **Scrobble to Multi-Scrobbler** is on | none — resolved by bridge address                  |
@@ -158,13 +160,13 @@ It is a port check, not an HTTP check, so it reports ready as soon as Navidrome 
 
 The `main` volume is copied wholesale — `sdk.Backups.ofVolumes('main')`. That captures the database, the cache, and `store.json`, so the media-source selection and every setting survive a restore.
 
-The music library is **not** backed up, because it is not this package's data. Restoring Navidrome onto a server whose FileBrowser Quantum or Nextcloud has not also been restored gives you a database full of tracks whose files are missing; restore the source service first. No custom `restoreInit` logic runs beyond the SDK default.
+The music library is **not** backed up, because it is not this package's data. Restoring Navidrome onto a server whose NextExplorer, FileBrowser Quantum or Nextcloud has not also been restored gives you a database full of tracks whose files are missing; restore the source service first. No custom `restoreInit` logic runs beyond the SDK default.
 
 ## Limitations and Differences
 
-1. **The library must live in FileBrowser Quantum or Nextcloud.** A StartOS package cannot mount an arbitrary host path, so there is no way to point Navidrome at anything else.
+1. **The library must live in NextExplorer, FileBrowser Quantum or Nextcloud.** A StartOS package cannot mount an arbitrary host path, so there is no way to point Navidrome at anything else.
 2. **`/music` is read-only**, so Navidrome cannot write embedded tags, rename files, or fix permissions — matching upstream's own read-only-mount recommendation. Manage the files from the source service.
-3. **Navidrome's multi-library feature is not configured here.** Both mounted sources land in the single default library as sibling folders. Additional libraries can still be added from Navidrome's own Settings → Libraries.
+3. **Navidrome's multi-library feature is not configured here.** Every mounted source lands in the single default library as sibling folders. Additional libraries can still be added from Navidrome's own Settings → Libraries.
 
 ---
 
@@ -191,6 +193,7 @@ startos_managed_env_vars:
   - ND_SCANNER_SCHEDULE
   - ND_SESSIONTIMEOUT
 dependencies:
+  - nextexplorer # optional, exists
   - filebrowser # optional, exists
   - nextcloud # optional, exists
   - multi-scrobbler # optional, running

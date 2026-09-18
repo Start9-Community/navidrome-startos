@@ -6,6 +6,9 @@ export const setDependencies = sdk.setupDependencies(async ({ effects }) => {
     (await store.read().const(effects)) || {}
 
   return {
+    ...(mediaSources.includes('nextexplorer') && {
+      nextexplorer: { kind: 'exists', versionRange: '>=2.2.7:0' },
+    }),
     ...(mediaSources.includes('filebrowser') && {
       filebrowser: { kind: 'exists', versionRange: '>=2.63.18:3' },
     }),

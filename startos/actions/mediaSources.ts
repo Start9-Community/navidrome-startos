@@ -1,6 +1,7 @@
 import { T } from '@start9labs/start-sdk'
 import { manifest as filebrowserManifest } from 'filebrowser-startos/startos/manifest'
 import { manifest as nextcloudManifest } from 'nextcloud-startos/startos/manifest'
+import { manifest as nextexplorerManifest } from 'nextexplorer-startos/startos/manifest'
 import { store } from '../fileModels/store.json'
 import { i18n } from '../i18n'
 import { sdk } from '../sdk'
@@ -11,11 +12,21 @@ export const inputSpec = InputSpec.of({
   mediaSources: Value.multiselect({
     name: i18n('Music Sources'),
     values: {
+      nextexplorer: i18n('NextExplorer'),
       filebrowser: i18n('FileBrowser Quantum'),
       nextcloud: i18n('Nextcloud'),
     },
     default: [],
     minLength: 1,
+  }),
+  nextexplorerSubpath: Value.text({
+    name: i18n('NextExplorer Subfolder'),
+    description: i18n(
+      'Path within NextExplorer\'s storage to scan for music, starting with the drive name (e.g. "Files/Music"). Required when NextExplorer is selected above.',
+    ),
+    required: false,
+    default: null,
+    placeholder: 'Files/Music',
   }),
   filebrowserSubpath: Value.text({
     name: i18n('FileBrowser Quantum Subfolder'),
@@ -55,15 +66,24 @@ export const mediaSources = sdk.Action.withInput(
     const current = await store.read().const(effects)
     return {
       mediaSources: current?.mediaSources || [],
+      nextexplorerSubpath: current?.nextexplorerSubpath || null,
       filebrowserSubpath: current?.filebrowserSubpath || null,
       nextcloudSubpath: current?.nextcloudSubpath || null,
     }
   },
 
   async ({ effects, input }) => {
+    const nextexplorerSubpath = input.nextexplorerSubpath?.trim() || null
     const filebrowserSubpath = input.filebrowserSubpath?.trim() || null
     const nextcloudSubpath = input.nextcloudSubpath?.trim() || null
 
+    if (input.mediaSources.includes('nextexplorer') && !nextexplorerSubpath) {
+      throw new Error(
+        i18n(
+          'A NextExplorer subfolder is required when NextExplorer is selected as a music source.',
+        ),
+      )
+    }
     if (input.mediaSources.includes('filebrowser') && !filebrowserSubpath) {
       throw new Error(
         i18n(
@@ -79,6 +99,19 @@ export const mediaSources = sdk.Action.withInput(
       )
     }
 
+    if (input.mediaSources.includes('nextexplorer')) {
+      await checkSubpathExists(effects, {
+        label: i18n('NextExplorer'),
+        subpath: nextexplorerSubpath!,
+        mount: sdk.Mounts.of().mountDependency<typeof nextexplorerManifest>({
+          dependencyId: 'nextexplorer',
+          volumeId: 'data',
+          subpath: nextexplorerSubpath!,
+          mountpoint: '/check',
+          readonly: true,
+        }),
+      })
+    }
     if (input.mediaSources.includes('filebrowser')) {
       await checkSubpathExists(effects, {
         label: i18n('FileBrowser Quantum'),
@@ -108,6 +141,7 @@ export const mediaSources = sdk.Action.withInput(
 
     await store.merge(effects, {
       mediaSources: input.mediaSources,
+      nextexplorerSubpath,
       filebrowserSubpath,
       nextcloudSubpath,
     })

@@ -34,7 +34,7 @@ const dict = {
   "Navidrome's SQLite database file, usually named navidrome.db, taken from another instance's data volume.": 23,
   'Import Existing Database': 24,
   "Replace Navidrome's database with a previously exported navidrome.db file.": 25,
-  'This permanently replaces the current database and cannot be undone. Navidrome stores each track under the exact path it was scanned at — the imported database only matches your library if the FileBrowser Quantum / Nextcloud subfolder(s) configured in Select Music Sources are identical to the ones the source instance used. A mismatch will not corrupt anything, but tracks will show as missing until you re-scan.': 26,
+  'This permanently replaces the current database and cannot be undone. Navidrome stores each track under the exact path it was scanned at — the imported database only matches your library if the NextExplorer / FileBrowser Quantum / Nextcloud subfolder(s) configured in Select Music Sources are identical to the ones the source instance used. A mismatch will not corrupt anything, but tracks will show as missing until you re-scan.': 26,
   // actions/settings.ts
   'Scrobble to Multi-Scrobbler': 27,
   "Point Navidrome's ListenBrainz integration at the Multi-Scrobbler dependency's bridge address, so every play is scrobbled there. Requires Multi-Scrobbler to be installed.": 28,
@@ -60,6 +60,12 @@ const dict = {
   'Must be 5 space-separated cron fields (minute hour day month weekday), each a number, *, or a */step, e.g. "*/2 * * * *".': 46,
   // actions/importDatabase.ts
   'That file is not a SQLite database.': 47,
+  // NextExplorer
+  NextExplorer: 48,
+  'NextExplorer Subfolder': 49,
+  'Path within NextExplorer\'s storage to scan for music, starting with the drive name (e.g. "Files/Music"). Required when NextExplorer is selected above.': 50,
+  'A NextExplorer subfolder is required when NextExplorer is selected as a music source.': 51,
+  'NextExplorer is selected as a music source but has no subfolder configured. Re-run Select Music Sources.': 52,
 } as const
 
 /**
