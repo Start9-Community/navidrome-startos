@@ -66,6 +66,11 @@ const dict = {
   'Path within NextExplorer\'s storage to scan for music, starting with the drive name (e.g. "Files/Music"). Required when NextExplorer is selected above.': 50,
   'A NextExplorer subfolder is required when NextExplorer is selected as a music source.': 51,
   'NextExplorer is selected as a music source but has no subfolder configured. Re-run Select Music Sources.': 52,
+  // actions/settings.ts, interfaces.ts
+  'Jellyfin API (experimental)': 53,
+  "Enable Navidrome's Jellyfin API so Jellyfin-compatible music clients can connect. Experimental upstream. Sets ND_JELLYFIN_ENABLED.": 54,
+  'Jellyfin API': 55,
+  'Jellyfin-compatible API for Jellyfin music clients': 56,
 } as const
 
 /**

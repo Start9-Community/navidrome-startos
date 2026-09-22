@@ -21,6 +21,7 @@ export const main = sdk.setupMain(async ({ effects }) => {
     scrobbleToMultiScrobbler,
     recentlyAddedByModTime,
     scannerSchedule,
+    jellyfinEnabled,
     logLevel,
     sessionTimeout,
   } = (await store.read().const(effects)) || {}
@@ -124,6 +125,7 @@ export const main = sdk.setupMain(async ({ effects }) => {
             }
           : {}),
         ND_RECENTLYADDEDBYMODTIME: recentlyAddedByModTime ? 'true' : 'false',
+        ND_JELLYFIN_ENABLED: jellyfinEnabled ? 'true' : 'false',
         ND_LOGLEVEL: logLevel || 'info',
         ...(scannerSchedule ? { ND_SCANNER_SCHEDULE: scannerSchedule } : {}),
         ...(sessionTimeout ? { ND_SESSIONTIMEOUT: sessionTimeout } : {}),

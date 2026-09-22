@@ -55,6 +55,10 @@ export default {
     50: 'Ruta dentro del almacenamiento de NextExplorer donde buscar música, empezando por el nombre de la unidad (p. ej. "Files/Music"). Obligatorio si NextExplorer está seleccionado arriba.',
     51: 'Se requiere una subcarpeta de NextExplorer cuando NextExplorer está seleccionado como fuente de música.',
     52: 'NextExplorer está seleccionado como fuente de música pero no tiene una subcarpeta configurada. Vuelve a ejecutar Seleccionar Fuentes de Música.',
+    53: 'API de Jellyfin (experimental)',
+    54: 'Habilita la API de Jellyfin de Navidrome, para que los clientes de música compatibles con Jellyfin puedan conectarse. Es experimental en Navidrome. Establece ND_JELLYFIN_ENABLED.',
+    55: 'API de Jellyfin',
+    56: 'API compatible con Jellyfin para clientes de música de Jellyfin',
   },
   de_DE: {
     0: 'Navidrome wird gestartet!',
@@ -110,6 +114,10 @@ export default {
     50: 'Pfad innerhalb des NextExplorer-Speichers, der nach Musik durchsucht wird, beginnend mit dem Laufwerksnamen (z. B. "Files/Music"). Erforderlich, wenn NextExplorer oben ausgewählt ist.',
     51: 'Ein NextExplorer-Unterordner ist erforderlich, wenn NextExplorer als Musikquelle ausgewählt ist.',
     52: 'NextExplorer ist als Musikquelle ausgewählt, aber es ist kein Unterordner konfiguriert. Führe Musikquellen auswählen erneut aus.',
+    53: 'Jellyfin-API (experimentell)',
+    54: 'Aktiviert die Jellyfin-API von Navidrome, damit Jellyfin-kompatible Musik-Clients sich verbinden können. In Navidrome experimentell. Setzt ND_JELLYFIN_ENABLED.',
+    55: 'Jellyfin-API',
+    56: 'Jellyfin-kompatible API für Jellyfin-Musik-Clients',
   },
   pl_PL: {
     0: 'Uruchamianie Navidrome!',
@@ -165,6 +173,10 @@ export default {
     50: 'Ścieżka w magazynie NextExplorer do przeskanowania w poszukiwaniu muzyki, zaczynająca się od nazwy dysku (np. "Files/Music"). Wymagane, gdy NextExplorer jest wybrany powyżej.',
     51: 'Podfolder NextExplorer jest wymagany, gdy NextExplorer jest wybrany jako źródło muzyki.',
     52: 'NextExplorer jest wybrany jako źródło muzyki, ale nie ma skonfigurowanego podfolderu. Uruchom ponownie Wybierz źródła muzyki.',
+    53: 'API Jellyfin (eksperymentalne)',
+    54: 'Włącza API Jellyfin w Navidrome, aby klienci muzyczni zgodni z Jellyfin mogli się połączyć. W Navidrome jest eksperymentalne. Ustawia ND_JELLYFIN_ENABLED.',
+    55: 'API Jellyfin',
+    56: 'API zgodne z Jellyfin dla klientów muzycznych Jellyfin',
   },
   fr_FR: {
     0: 'Démarrage de Navidrome !',
@@ -220,5 +232,9 @@ export default {
     50: 'Chemin dans le stockage de NextExplorer à analyser pour la musique, commençant par le nom du lecteur (p. ex. "Files/Music"). Obligatoire si NextExplorer est sélectionné ci-dessus.',
     51: 'Un sous-dossier NextExplorer est requis lorsque NextExplorer est sélectionné comme source de musique.',
     52: 'NextExplorer est sélectionné comme source de musique mais aucun sous-dossier n’est configuré. Relancez Sélectionner les sources de musique.',
+    53: 'API Jellyfin (expérimental)',
+    54: "Active l'API Jellyfin de Navidrome, afin que les clients musicaux compatibles Jellyfin puissent se connecter. Expérimental dans Navidrome. Définit ND_JELLYFIN_ENABLED.",
+    55: 'API Jellyfin',
+    56: 'API compatible Jellyfin pour les clients musicaux Jellyfin',
   },
 } satisfies Record<string, LangDict>
