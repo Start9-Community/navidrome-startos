@@ -76,7 +76,7 @@ One model, `store.json`, holding StartOS-side state only. Navidrome's own `navid
 
 Nothing re-asserts a key behind the user's back: the two actions are the only writers, and `main.ts` reads the model reactively, so a save restarts the daemon with the new values. A hand edit of `store.json` survives and takes effect for the same reason — but there is no reason to make one, since both actions cover every field.
 
-The environment variables built from it are consumed by Navidrome **only at launch**, so they are not a live configuration surface. `ND_MUSICFOLDER`, `ND_RECENTLYADDEDBYMODTIME` and `ND_LOGLEVEL` are always set; `ND_SCANNER_SCHEDULE` and `ND_SESSIONTIMEOUT` are set only when their field is non-blank, and `ND_LISTENBRAINZ_ENABLED`/`ND_LISTENBRAINZ_BASEURL` only when scrobbling is on _and_ Multi-Scrobbler's bridge address resolves. An unresolvable dependency drops both variables rather than substituting an address, so Navidrome falls back to its own defaults instead of pointing at a dead endpoint.
+The environment variables built from it are consumed by Navidrome **only at launch**, so they are not a live configuration surface. `ND_MUSICFOLDER`, `ND_RECENTLYADDEDBYMODTIME`, `ND_JELLYFIN_ENABLED` and `ND_LOGLEVEL` are always set; `ND_SCANNER_SCHEDULE` and `ND_SESSIONTIMEOUT` are set only when their field is non-blank, and `ND_LISTENBRAINZ_ENABLED`/`ND_LISTENBRAINZ_BASEURL` only when scrobbling is on _and_ Multi-Scrobbler's bridge address resolves. An unresolvable dependency drops both variables rather than substituting an address, so Navidrome falls back to its own defaults instead of pointing at a dead endpoint.
 
 ## Dependencies
 
@@ -95,14 +95,17 @@ At least one music source must be selected before the daemon will start.
 
 ## Network Access and Interfaces
 
-Two interfaces on one port — Navidrome serves its Subsonic API alongside the player.
+Two interfaces on one port — Navidrome serves its Subsonic API alongside the player — plus a third when the Jellyfin API setting is on.
 
-| Interface     | Id    | Type | Port | Purpose                                           |
-| ------------- | ----- | ---- | ---- | ------------------------------------------------- |
-| Web Interface | `ui`  | ui   | 4533 | Browser access to the Navidrome player            |
-| Subsonic API  | `api` | api  | 4533 | URL to paste into Subsonic-compatible client apps |
+| Interface     | Id         | Type | Port | Purpose                                                                         |
+| ------------- | ---------- | ---- | ---- | ------------------------------------------------------------------------------- |
+| Web Interface | `ui`       | ui   | 4533 | Browser access to the Navidrome player                                          |
+| Subsonic API  | `api`      | api  | 4533 | URL to paste into Subsonic-compatible client apps                               |
+| Jellyfin API  | `jellyfin` | api  | 4533 | `/jellyfin` path; only exported when **Jellyfin API (experimental)** is enabled |
 
-Both are exported from the same `ui` MultiHost origin. They are split into two interfaces so a user can copy a dedicated URL into a client app without it also being the one they bookmark for the browser.
+All are exported from the same `ui` MultiHost origin. They are split into two interfaces so a user can copy a dedicated URL into a client app without it also being the one they bookmark for the browser.
+
+**Client note:** Symfonium's Jellyfin sync currently reports "0 tracks" and never completes against this endpoint — reported upstream (`navidrome/navidrome`). Upstream lists Finamp, Feishin, and Jellify as tested clients for this API; we haven't independently verified those.
 
 ## Installation and First-Run Flow
 
@@ -200,6 +203,7 @@ dependencies:
 interfaces:
   ui: { type: ui, port: 4533 }
   api: { type: api, port: 4533 }
+  jellyfin: { type: api, port: 4533 } # only when the Jellyfin API setting is on
 actions:
   - media-sources
   - settings

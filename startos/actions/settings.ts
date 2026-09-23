@@ -43,6 +43,13 @@ export const inputSpec = InputSpec.of({
       },
     ],
   }),
+  jellyfinEnabled: Value.toggle({
+    name: i18n('Jellyfin API (experimental)'),
+    description: i18n(
+      "Enable Navidrome's Jellyfin API so Jellyfin-compatible music clients can connect. Experimental upstream. Sets ND_JELLYFIN_ENABLED.",
+    ),
+    default: false,
+  }),
   logLevel: Value.select({
     name: i18n('Log Level'),
     description: i18n(
@@ -96,6 +103,7 @@ export const settings = sdk.Action.withInput(
       scrobbleToMultiScrobbler: current?.scrobbleToMultiScrobbler || false,
       recentlyAddedByModTime: current?.recentlyAddedByModTime || false,
       scannerSchedule: current?.scannerSchedule || null,
+      jellyfinEnabled: current?.jellyfinEnabled || false,
       logLevel: current?.logLevel || 'info',
       sessionTimeout: current?.sessionTimeout || null,
     }
@@ -124,6 +132,7 @@ export const settings = sdk.Action.withInput(
       scrobbleToMultiScrobbler: input.scrobbleToMultiScrobbler,
       recentlyAddedByModTime: input.recentlyAddedByModTime,
       scannerSchedule,
+      jellyfinEnabled: input.jellyfinEnabled,
       logLevel: input.logLevel,
       sessionTimeout,
     })
