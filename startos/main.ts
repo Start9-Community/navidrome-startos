@@ -24,6 +24,7 @@ export const main = sdk.setupMain(async ({ effects }) => {
     jellyfinEnabled,
     logLevel,
     sessionTimeout,
+    smartPlaylistRefreshDelay,
   } = (await store.read().const(effects)) || {}
 
   // Resolves to null when Multi-Scrobbler is absent or stopped; the env vars
@@ -129,6 +130,9 @@ export const main = sdk.setupMain(async ({ effects }) => {
         ND_LOGLEVEL: logLevel || 'info',
         ...(scannerSchedule ? { ND_SCANNER_SCHEDULE: scannerSchedule } : {}),
         ...(sessionTimeout ? { ND_SESSIONTIMEOUT: sessionTimeout } : {}),
+        ...(smartPlaylistRefreshDelay
+          ? { ND_SMARTPLAYLISTREFRESHDELAY: smartPlaylistRefreshDelay }
+          : {}),
       },
     },
     ready: {

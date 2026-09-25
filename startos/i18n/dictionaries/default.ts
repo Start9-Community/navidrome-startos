@@ -72,6 +72,9 @@ const dict = {
   'Jellyfin API': 55,
   'Jellyfin-compatible API for Jellyfin music clients': 56,
   "Where your music library is stored. Pick one or more; each is mounted read-only and appears as its own folder in Navidrome's library.\n- NextExplorer: a folder in one of NextExplorer's locations\n- FileBrowser Quantum: a folder in FileBrowser Quantum's storage\n- Nextcloud: a folder in a Nextcloud user's files": 57,
+  // actions/settings.ts
+  'Smart Playlist Refresh Delay': 58,
+  'How long a smart playlist keeps its track list before Navidrome re-evaluates it. Raise this (e.g. "24h") so playlists sorted by random stay the same between client syncs instead of reshuffling. Only s (seconds), m (minutes), or h (hours) are accepted. Leave blank to use Navidrome\'s own default (5s). Sets ND_SMARTPLAYLISTREFRESHDELAY.': 59,
 } as const
 
 /**

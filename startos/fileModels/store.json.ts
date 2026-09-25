@@ -13,6 +13,7 @@ const shape = z.looseObject({
   scannerSchedule: z.string().nullable().catch(null),
   logLevel: z.enum(['error', 'warn', 'info', 'debug', 'trace']).catch('info'),
   sessionTimeout: z.string().nullable().catch(null),
+  smartPlaylistRefreshDelay: z.string().nullable().catch(null),
   jellyfinEnabled: z.boolean().catch(false),
 })
 

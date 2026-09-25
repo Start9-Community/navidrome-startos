@@ -53,6 +53,7 @@ This action bundles settings that don't have an equivalent in Navidrome's own ad
 - **Jellyfin API (experimental)**: lets Jellyfin-compatible music clients (e.g. Finamp, Feishin, Jellify) connect. Off by default; when on, a **Jellyfin API** interface appears on the service page — use its URL (it ends in `/jellyfin`) with your normal Navidrome username and password. Upstream still labels this experimental, and LAN auto-discovery is not available. **Symfonium's Jellyfin sync doesn't currently work here** — it reports "0 tracks." Use Symfonium's own Subsonic API support (the **Subsonic API** interface above) instead for now.
 - **Log Level**: how verbose Navidrome's logs are, viewable from this service's Logs tab. Turn up to `debug` or `trace` when troubleshooting; leave at `info` otherwise.
 - **Session Timeout**: how long you can stay idle in the web UI before being logged out, e.g. `24h` or `45m`. Leave blank to use Navidrome's own default (48 hours).
+- **Smart Playlist Refresh Delay**: how long a smart playlist keeps the same tracks before Navidrome rebuilds it, e.g. `24h`. Navidrome's default is just 5 seconds, so a smart playlist sorted by `random` reshuffles almost every time an app like Symfonium syncs it, making the app download new songs and discard the old ones over and over. Set this to `24h` for a playlist that changes once a day. It applies to every smart playlist. Leave blank to keep Navidrome's default.
 
 Saving restarts Navidrome automatically, so the change takes effect within a few seconds.
 
