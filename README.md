@@ -62,7 +62,7 @@ One volume for Navidrome's own state, plus a music tree that belongs to somebody
 
 The sources differ in what a subfolder path is relative to, which is the single most common setup mistake:
 
-- **NextExplorer** mounts its `data` volume at `/mnt` in its own container and shows each of its immediate subdirectories as a drive, so the path starts with the drive name — `Files/Music` for the default drive.
+- **NextExplorer** mounts its `data` volume at `/mnt` in its own container and lists each of its immediate subdirectories under Locations, so the path starts with a location name — `Files/Music` for the default `Files` location.
 - **FileBrowser Quantum** mounts its `data` volume 1:1 at `/srv` in its own container, so the path is relative to its storage root directly — `Music`.
 - **Nextcloud** mounts its `nextcloud` volume at its **webroot**, not its data folder, so the path must start with `data/`, then the Nextcloud username, then `files/` — `data/admin/files/Music`. A bare `<username>/files/…` path is missing the `data/` prefix; the bind mount then fails with `mount exited with exit status: 32`, because StartOS creates the mount target but never the source.
 
@@ -80,14 +80,14 @@ The environment variables built from it are consumed by Navidrome **only at laun
 
 ## Dependencies
 
-Four, all optional, and all declared conditionally — a dependency this package does not currently need is not declared at all, so its card does not appear.
+Four, all optional, defined in `startos/dependencies.ts`. Each is enabled only while the setting that uses it is on; a disabled one places no requirement on the service.
 
-| Dependency        | Kind      | Declared when                         | Mount                                              |
-| ----------------- | --------- | ------------------------------------- | -------------------------------------------------- |
-| `nextexplorer`    | `exists`  | selected in **Select Music Sources**  | `data` volume → `/music/nextexplorer`, read-only   |
-| `filebrowser`     | `exists`  | selected in **Select Music Sources**  | `data` volume → `/music/filebrowser`, read-only    |
-| `nextcloud`       | `exists`  | selected in **Select Music Sources**  | `nextcloud` volume → `/music/nextcloud`, read-only |
-| `multi-scrobbler` | `running` | **Scrobble to Multi-Scrobbler** is on | none — resolved by bridge address                  |
+| Dependency        | Kind      | Version range | Enabled when                          | Mount                                              |
+| ----------------- | --------- | ------------- | ------------------------------------- | -------------------------------------------------- |
+| `nextexplorer`    | `exists`  | `>=2.2.7:0`   | selected in **Select Music Sources**  | `data` volume → `/music/nextexplorer`, read-only   |
+| `filebrowser`     | `exists`  | `>=2.63.18:3` | selected in **Select Music Sources**  | `data` volume → `/music/filebrowser`, read-only    |
+| `nextcloud`       | `exists`  | `>=33.0.6:1`  | selected in **Select Music Sources**  | `nextcloud` volume → `/music/nextcloud`, read-only |
+| `multi-scrobbler` | `running` | `>=0.14.2:0`  | **Scrobble to Multi-Scrobbler** is on | none — resolved by bridge address                  |
 
 The music sources are `exists` rather than `running` because a bind mount reads the volume off disk and never talks to the service. Multi-Scrobbler is `running` with its own health check, because Navidrome submits scrobbles to it over HTTP.
 
@@ -192,14 +192,15 @@ startos_managed_env_vars:
   - ND_LISTENBRAINZ_ENABLED
   - ND_LISTENBRAINZ_BASEURL
   - ND_RECENTLYADDEDBYMODTIME
+  - ND_JELLYFIN_ENABLED
   - ND_LOGLEVEL
   - ND_SCANNER_SCHEDULE
   - ND_SESSIONTIMEOUT
 dependencies:
-  - nextexplorer # optional, exists
-  - filebrowser # optional, exists
-  - nextcloud # optional, exists
-  - multi-scrobbler # optional, running
+  - nextexplorer # optional, exists, >=2.2.7:0
+  - filebrowser # optional, exists, >=2.63.18:3
+  - nextcloud # optional, exists, >=33.0.6:1
+  - multi-scrobbler # optional, running, >=0.14.2:0
 interfaces:
   ui: { type: ui, port: 4533 }
   api: { type: api, port: 4533 }

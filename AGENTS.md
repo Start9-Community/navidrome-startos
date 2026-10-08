@@ -18,14 +18,21 @@ Freshly scaffolded? Work the
 guide page, not a file in this repo — read it, don't copy it in.
 
 Keep `README.md` (technical reference for an AI support or administering agent) and
-`instructions.md` (end-user docs) in sync with your changes.
+`instructions.md` (end-user docs) in sync with your changes. This file restates neither:
+whoever changes the package has both, so it carries only what they don't — repo mechanics,
+a change that looks right and is not, where the next thing gets added, a naming trap, a
+build or test invocation particular to this repo.
 
-**Bugs and feature requests are GitHub issues on this repo** — file them as you find them.
+**Fix a defect you spot rather than reporting it** — you have the package open and the
+context to be sure. File **a GitHub issue on this repo** only when the call isn't yours to
+make: you can't pin the cause down, two defensible fixes exist, or it's too large to ride on
+the work in hand. An open issue is a report, not a queue — implement one when you're asked
+to or when it's labelled `Approved`, then close it with `Closes #<n>`.
+
 Don't record work in the repo instead: no `TODO.md`, no `NOTES.md`, no `PLAN.md`. What you
 verified, tried, and decided belongs in the commit message and the PR body.
 
 ## This repo
 
-- **Three sibling packages are npm dependencies, for types and constants only.** `filebrowser-startos` and `nextcloud-startos` supply the manifest types that `mountDependency<typeof …>` needs; `multi-scrobbler-startos` supplies `uiHostId`/`uiPort`. Don't hardcode a dependency's volume id, host id, or port — read it from its source, so a rename there breaks the build instead of the runtime.
-- **`multi-scrobbler-startos` is not in either registry.** It is pinned to a contributor's personal repo, so the scrobbling toggle names a dependency no user can currently install, and CI's `npm ci` depends on that repo staying reachable. Bringing it into `Start9-Community` is the fix; don't paper over it by inlining the constants.
-- **`/music` is never this package's volume.** It exists only as read-only mounts of another service's data, scoped to a user-chosen subfolder. Anything that would write there is wrong by construction.
+- **Read a dependency's volume id, host id or port from its `*-startos` npm package, never hardcode it.** A rename there then breaks the build instead of the runtime.
+- **Keep every `/music` mount read-only.** It is another service's data, scoped to a user-chosen subfolder.
