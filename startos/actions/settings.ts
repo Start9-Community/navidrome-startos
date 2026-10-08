@@ -81,6 +81,23 @@ export const inputSpec = InputSpec.of({
       },
     ],
   }),
+  smartPlaylistRefreshDelay: Value.text({
+    name: i18n('Smart Playlist Refresh Delay'),
+    description: i18n(
+      'How long a smart playlist keeps its track list before Navidrome re-evaluates it. Raise this (e.g. "24h") so playlists sorted by random stay the same between client syncs instead of reshuffling. Only s (seconds), m (minutes), or h (hours) are accepted. Leave blank to use Navidrome\'s own default (5s). Sets ND_SMARTPLAYLISTREFRESHDELAY.',
+    ),
+    default: null,
+    required: false,
+    placeholder: '24h',
+    patterns: [
+      {
+        regex: GO_DURATION,
+        description: i18n(
+          'Must be a number followed by s, m, or h (e.g. "45m", "2h", or "1h30m").',
+        ),
+      },
+    ],
+  }),
 })
 
 export const settings = sdk.Action.withInput(
@@ -106,12 +123,15 @@ export const settings = sdk.Action.withInput(
       jellyfinEnabled: current?.jellyfinEnabled || false,
       logLevel: current?.logLevel || 'info',
       sessionTimeout: current?.sessionTimeout || null,
+      smartPlaylistRefreshDelay: current?.smartPlaylistRefreshDelay || null,
     }
   },
 
   async ({ effects, input }) => {
     const scannerSchedule = input.scannerSchedule?.trim() || null
     const sessionTimeout = input.sessionTimeout?.trim() || null
+    const smartPlaylistRefreshDelay =
+      input.smartPlaylistRefreshDelay?.trim() || null
 
     if (scannerSchedule && !new RegExp(CRON_5_FIELD).test(scannerSchedule)) {
       throw new Error(
@@ -120,12 +140,14 @@ export const settings = sdk.Action.withInput(
         ),
       )
     }
-    if (sessionTimeout && !new RegExp(GO_DURATION).test(sessionTimeout)) {
-      throw new Error(
-        i18n(
-          'Must be a number followed by s, m, or h (e.g. "45m", "2h", or "1h30m").',
-        ),
-      )
+    for (const duration of [sessionTimeout, smartPlaylistRefreshDelay]) {
+      if (duration && !new RegExp(GO_DURATION).test(duration)) {
+        throw new Error(
+          i18n(
+            'Must be a number followed by s, m, or h (e.g. "45m", "2h", or "1h30m").',
+          ),
+        )
+      }
     }
 
     await store.merge(effects, {
@@ -135,6 +157,7 @@ export const settings = sdk.Action.withInput(
       jellyfinEnabled: input.jellyfinEnabled,
       logLevel: input.logLevel,
       sessionTimeout,
+      smartPlaylistRefreshDelay,
     })
   },
 )

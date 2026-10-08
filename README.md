@@ -76,7 +76,7 @@ One model, `store.json`, holding StartOS-side state only. Navidrome's own `navid
 
 Nothing re-asserts a key behind the user's back: the two actions are the only writers, and `main.ts` reads the model reactively, so a save restarts the daemon with the new values. A hand edit of `store.json` survives and takes effect for the same reason — but there is no reason to make one, since both actions cover every field.
 
-The environment variables built from it are consumed by Navidrome **only at launch**, so they are not a live configuration surface. `ND_MUSICFOLDER`, `ND_RECENTLYADDEDBYMODTIME`, `ND_JELLYFIN_ENABLED` and `ND_LOGLEVEL` are always set; `ND_SCANNER_SCHEDULE` and `ND_SESSIONTIMEOUT` are set only when their field is non-blank, and `ND_LISTENBRAINZ_ENABLED`/`ND_LISTENBRAINZ_BASEURL` only when scrobbling is on _and_ Multi-Scrobbler's bridge address resolves. An unresolvable dependency drops both variables rather than substituting an address, so Navidrome falls back to its own defaults instead of pointing at a dead endpoint.
+The environment variables built from it are consumed by Navidrome **only at launch**, so they are not a live configuration surface. `ND_MUSICFOLDER`, `ND_RECENTLYADDEDBYMODTIME`, `ND_JELLYFIN_ENABLED` and `ND_LOGLEVEL` are always set; `ND_SCANNER_SCHEDULE`, `ND_SESSIONTIMEOUT` and `ND_SMARTPLAYLISTREFRESHDELAY` are set only when their field is non-blank, and `ND_LISTENBRAINZ_ENABLED`/`ND_LISTENBRAINZ_BASEURL` only when scrobbling is on _and_ Multi-Scrobbler's bridge address resolves. An unresolvable dependency drops both variables rather than substituting an address, so Navidrome falls back to its own defaults instead of pointing at a dead endpoint.
 
 ## Dependencies
 
@@ -128,6 +128,8 @@ Before saving, the handler mounts each selected subfolder into a throwaway subco
 ### Configure Navidrome
 
 Deliberately limited to settings with **no equivalent in Navidrome's own admin UI**; themes, transcoding, users, and playlists all stay upstream-managed. Saving restarts the daemon, so a change costs an interruption of a few seconds. Idempotent.
+
+**Smart Playlist Refresh Delay** sets the global window during which a smart playlist is served from its last evaluation instead of being rebuilt; Navidrome also reports it to Subsonic clients as the playlist's `validUntil`. Upstream's 5s default makes a `random`-sorted smart playlist reshuffle on nearly every client sync, which offline-caching clients such as Symfonium turn into constant re-downloads. A per-playlist `refreshDelay` in the playlist's rules overrides it. The field accepts only `s`/`m`/`h` units: `0s` does not disable refreshing but re-evaluates on every access.
 
 Enabling **Scrobble to Multi-Scrobbler** is not sufficient on its own — a matching token must be entered by hand in both applications' own UIs, as `instructions.md` describes. Symptom of skipping it: scrobbles are submitted and silently rejected.
 
@@ -196,6 +198,7 @@ startos_managed_env_vars:
   - ND_LOGLEVEL
   - ND_SCANNER_SCHEDULE
   - ND_SESSIONTIMEOUT
+  - ND_SMARTPLAYLISTREFRESHDELAY
 dependencies:
   - nextexplorer # optional, exists, >=2.2.7:0
   - filebrowser # optional, exists, >=2.63.18:3

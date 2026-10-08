@@ -60,6 +60,8 @@ export default {
     55: 'API de Jellyfin',
     56: 'API compatible con Jellyfin para clientes de música de Jellyfin',
     57: 'Dónde se almacena tu biblioteca musical. Elige una o más; cada una se monta en solo lectura y aparece como su propia carpeta en la biblioteca de Navidrome.\n- NextExplorer: una carpeta en una de las ubicaciones de NextExplorer\n- FileBrowser Quantum: una carpeta en el almacenamiento de FileBrowser Quantum\n- Nextcloud: una carpeta en los archivos de un usuario de Nextcloud',
+    58: 'Retraso de actualización de listas inteligentes',
+    59: 'Cuánto tiempo conserva una lista inteligente sus pistas antes de que Navidrome la vuelva a evaluar. Auméntalo (p. ej. "24h") para que las listas ordenadas al azar se mantengan iguales entre sincronizaciones del cliente en lugar de volver a mezclarse. Solo se aceptan s (segundos), m (minutos) o h (horas). Déjalo en blanco para usar el valor predeterminado de Navidrome (5s). Configura ND_SMARTPLAYLISTREFRESHDELAY.',
   },
   de_DE: {
     0: 'Navidrome wird gestartet!',
@@ -120,6 +122,8 @@ export default {
     55: 'Jellyfin-API',
     56: 'Jellyfin-kompatible API für Jellyfin-Musik-Clients',
     57: 'Wo deine Musikbibliothek gespeichert ist. Wähle eine oder mehrere; jede wird schreibgeschützt eingebunden und erscheint als eigener Ordner in der Bibliothek von Navidrome.\n- NextExplorer: ein Ordner in einem der Speicherorte von NextExplorer\n- FileBrowser Quantum: ein Ordner im Speicher von FileBrowser Quantum\n- Nextcloud: ein Ordner in den Dateien eines Nextcloud-Benutzers',
+    58: 'Aktualisierungsverzögerung für intelligente Playlists',
+    59: 'Wie lange eine intelligente Playlist ihre Titelliste behält, bevor Navidrome sie neu auswertet. Erhöhe den Wert (z. B. "24h"), damit zufällig sortierte Playlists zwischen Client-Synchronisierungen gleich bleiben, statt neu gemischt zu werden. Nur s (Sekunden), m (Minuten) oder h (Stunden) werden akzeptiert. Leer lassen, um Navidromes eigenen Standardwert (5s) zu verwenden. Setzt ND_SMARTPLAYLISTREFRESHDELAY.',
   },
   pl_PL: {
     0: 'Uruchamianie Navidrome!',
@@ -180,6 +184,8 @@ export default {
     55: 'API Jellyfin',
     56: 'API zgodne z Jellyfin dla klientów muzycznych Jellyfin',
     57: 'Gdzie przechowywana jest Twoja biblioteka muzyczna. Wybierz jedno lub więcej; każde jest montowane tylko do odczytu i pojawia się jako osobny folder w bibliotece Navidrome.\n- NextExplorer: folder w jednej z lokalizacji NextExplorer\n- FileBrowser Quantum: folder w magazynie FileBrowser Quantum\n- Nextcloud: folder w plikach użytkownika Nextcloud',
+    58: 'Opóźnienie odświeżania inteligentnych playlist',
+    59: 'Jak długo inteligentna playlista zachowuje swoją listę utworów, zanim Navidrome oceni ją ponownie. Zwiększ tę wartość (np. "24h"), aby playlisty sortowane losowo pozostawały takie same między synchronizacjami klienta, zamiast być ponownie tasowane. Akceptowane są tylko s (sekundy), m (minuty) lub h (godziny). Pozostaw puste, aby użyć domyślnej wartości Navidrome (5s). Ustawia ND_SMARTPLAYLISTREFRESHDELAY.',
   },
   fr_FR: {
     0: 'Démarrage de Navidrome !',
@@ -240,5 +246,7 @@ export default {
     55: 'API Jellyfin',
     56: 'API compatible Jellyfin pour les clients musicaux Jellyfin',
     57: "Où est stockée votre bibliothèque musicale. Choisissez-en une ou plusieurs ; chacune est montée en lecture seule et apparaît comme son propre dossier dans la bibliothèque de Navidrome.\n- NextExplorer : un dossier dans l'un des emplacements de NextExplorer\n- FileBrowser Quantum : un dossier dans le stockage de FileBrowser Quantum\n- Nextcloud : un dossier dans les fichiers d'un utilisateur Nextcloud",
+    58: 'Délai de rafraîchissement des playlists intelligentes',
+    59: 'Durée pendant laquelle une playlist intelligente conserve sa liste de pistes avant que Navidrome ne la réévalue. Augmentez cette valeur (p. ex. "24h") pour que les playlists triées aléatoirement restent identiques entre les synchronisations du client au lieu d\'être remélangées. Seuls s (secondes), m (minutes) ou h (heures) sont acceptés. Laissez vide pour utiliser la valeur par défaut de Navidrome (5s). Définit ND_SMARTPLAYLISTREFRESHDELAY.',
   },
 } satisfies Record<string, LangDict>

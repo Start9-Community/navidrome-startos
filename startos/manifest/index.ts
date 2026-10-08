@@ -13,8 +13,8 @@ export const manifest = setupManifest({
   volumes: ['main'],
   images: {
     navidrome: {
-      // Confirmed amd64 + arm64 present 2026-09-16.
-      source: { dockerTag: 'deluan/navidrome:0.64.1' },
+      // Confirmed amd64 + arm64 present 2026-10-07.
+      source: { dockerTag: 'deluan/navidrome:0.64.2' },
       arch: ['x86_64', 'aarch64'],
     },
   },
