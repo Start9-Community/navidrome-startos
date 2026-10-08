@@ -1,6 +1,7 @@
 import { store } from '../fileModels/store.json'
 import { i18n } from '../i18n'
 import { sdk } from '../sdk'
+import { goDurationPattern, isValidGoDuration } from '../utils'
 
 const { InputSpec, Value } = sdk
 
@@ -9,7 +10,6 @@ const { InputSpec, Value } = sdk
 // Navidrome's own config parser crash-loops the daemon on the next start.
 const CRON_5_FIELD =
   '^(?:\\*|[0-9]+(?:-[0-9]+)?)(?:/[0-9]+)?(?:,(?:\\*|[0-9]+(?:-[0-9]+)?)(?:/[0-9]+)?)*(?:\\s+(?:\\*|[0-9]+(?:-[0-9]+)?)(?:/[0-9]+)?(?:,(?:\\*|[0-9]+(?:-[0-9]+)?)(?:/[0-9]+)?)*){4}$'
-const GO_DURATION = '^([0-9]+(s|m|h))+$'
 
 export const inputSpec = InputSpec.of({
   scrobbleToMultiScrobbler: Value.toggle({
@@ -67,14 +67,14 @@ export const inputSpec = InputSpec.of({
   sessionTimeout: Value.text({
     name: i18n('Session Timeout'),
     description: i18n(
-      'How long an idle web UI session stays logged in. Only s (seconds), m (minutes), or h (hours) are accepted, e.g. "45m" or "2h" — other unit names (like "min") will crash Navidrome. Leave blank to use Navidrome\'s own default (48h). Sets ND_SESSIONTIMEOUT.',
+      'How long an idle web UI session stays logged in. Only s (seconds), m (minutes), or h (hours) are accepted, e.g. "45m" or "2h" — other unit names (like "min") will crash Navidrome. Maximum 2562047h47m16s. Leave blank to use Navidrome\'s own default (48h). Sets ND_SESSIONTIMEOUT.',
     ),
     default: null,
     required: false,
     placeholder: '48h',
     patterns: [
       {
-        regex: GO_DURATION,
+        regex: goDurationPattern,
         description: i18n(
           'Must be a number followed by s, m, or h (e.g. "45m", "2h", or "1h30m").',
         ),
@@ -84,14 +84,14 @@ export const inputSpec = InputSpec.of({
   smartPlaylistRefreshDelay: Value.text({
     name: i18n('Smart Playlist Refresh Delay'),
     description: i18n(
-      'How long a smart playlist keeps its track list before Navidrome re-evaluates it. Raise this (e.g. "24h") so playlists sorted by random stay the same between client syncs instead of reshuffling. Only s (seconds), m (minutes), or h (hours) are accepted. Leave blank to use Navidrome\'s own default (5s). Sets ND_SMARTPLAYLISTREFRESHDELAY.',
+      'How long a smart playlist keeps its track list before Navidrome re-evaluates it. Raise this (e.g. "24h") so playlists sorted by random stay the same between client syncs instead of reshuffling. Only s (seconds), m (minutes), or h (hours) are accepted. Maximum 2562047h47m16s. Leave blank to use Navidrome\'s own default (5s). Sets ND_SMARTPLAYLISTREFRESHDELAY.',
     ),
     default: null,
     required: false,
     placeholder: '24h',
     patterns: [
       {
-        regex: GO_DURATION,
+        regex: goDurationPattern,
         description: i18n(
           'Must be a number followed by s, m, or h (e.g. "45m", "2h", or "1h30m").',
         ),
@@ -141,10 +141,10 @@ export const settings = sdk.Action.withInput(
       )
     }
     for (const duration of [sessionTimeout, smartPlaylistRefreshDelay]) {
-      if (duration && !new RegExp(GO_DURATION).test(duration)) {
+      if (duration && !isValidGoDuration(duration)) {
         throw new Error(
           i18n(
-            'Must be a number followed by s, m, or h (e.g. "45m", "2h", or "1h30m").',
+            'Must be a duration using s, m, or h, no greater than 2562047h47m16s.',
           ),
         )
       }

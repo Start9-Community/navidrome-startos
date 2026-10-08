@@ -52,7 +52,7 @@ const dict = {
   Debug: 40,
   Trace: 41,
   'Session Timeout': 42,
-  'How long an idle web UI session stays logged in. Only s (seconds), m (minutes), or h (hours) are accepted, e.g. "45m" or "2h" — other unit names (like "min") will crash Navidrome. Leave blank to use Navidrome\'s own default (48h). Sets ND_SESSIONTIMEOUT.': 43,
+  'How long an idle web UI session stays logged in. Only s (seconds), m (minutes), or h (hours) are accepted, e.g. "45m" or "2h" — other unit names (like "min") will crash Navidrome. Maximum 2562047h47m16s. Leave blank to use Navidrome\'s own default (48h). Sets ND_SESSIONTIMEOUT.': 43,
   // actions/mediaSources.ts
   'Could not find "${subpath}" in ${label}. Check the path and that it\'s installed, then try again.': 44,
   // actions/settings.ts
@@ -74,7 +74,8 @@ const dict = {
   "Where your music library is stored. Pick one or more; each is mounted read-only and appears as its own folder in Navidrome's library.\n- NextExplorer: a folder in one of NextExplorer's locations\n- FileBrowser Quantum: a folder in FileBrowser Quantum's storage\n- Nextcloud: a folder in a Nextcloud user's files": 57,
   // actions/settings.ts
   'Smart Playlist Refresh Delay': 58,
-  'How long a smart playlist keeps its track list before Navidrome re-evaluates it. Raise this (e.g. "24h") so playlists sorted by random stay the same between client syncs instead of reshuffling. Only s (seconds), m (minutes), or h (hours) are accepted. Leave blank to use Navidrome\'s own default (5s). Sets ND_SMARTPLAYLISTREFRESHDELAY.': 59,
+  'How long a smart playlist keeps its track list before Navidrome re-evaluates it. Raise this (e.g. "24h") so playlists sorted by random stay the same between client syncs instead of reshuffling. Only s (seconds), m (minutes), or h (hours) are accepted. Maximum 2562047h47m16s. Leave blank to use Navidrome\'s own default (5s). Sets ND_SMARTPLAYLISTREFRESHDELAY.': 59,
+  'Must be a duration using s, m, or h, no greater than 2562047h47m16s.': 60,
 } as const
 
 /**
