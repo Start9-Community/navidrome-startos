@@ -16,7 +16,7 @@ Your music library isn't stored directly by this package — Navidrome reads it 
 
 1. Install NextExplorer (recommended), FileBrowser Quantum and/or Nextcloud from the StartOS marketplace first, and upload your music files there.
 2. Open Navidrome. A task will prompt you to run **Select Music Sources** — choose one or more services as the source of your library, and for each one, type the subfolder where your music lives. Only that subfolder is mounted — Navidrome does not see the rest of that service's storage.
-   - **NextExplorer**: start with the drive name, e.g. `Files/Music`.
+   - **NextExplorer**: start with one of its locations, e.g. `Files/Music`.
    - **FileBrowser Quantum**: relative to its storage root, e.g. `Music`.
    - **Nextcloud**: the path starts at Nextcloud's webroot, not its data folder — so it must begin with `data/`, then your Nextcloud username, then `files/`, e.g. `data/admin/files/Music`.
 3. Start the service. Navidrome scans the mounted folder(s) and builds your library.

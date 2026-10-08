@@ -45,7 +45,7 @@ const dict = {
   'Scanner Schedule': 33,
   'Standard 5-field cron expression for automatic library rescans: minute(0-59) hour(0-23) day-of-month(1-31) month(1-12) day-of-week(0-6, Sun=0), each either a number or *. E.g. "*/2 * * * *" for every 2 minutes, or "0 */6 * * *" for every 6 hours. Leave blank to disable scheduled scans. Sets ND_SCANNER_SCHEDULE.': 34,
   'Log Level': 35,
-  'Verbosity of Navidrome logs, viewable via the service Logs tab. Sets ND_LOGLEVEL.': 36,
+  "How much Navidrome writes to the service's Logs tab. Sets ND_LOGLEVEL.\n- Error: errors only\n- Warn: errors and warnings\n- Info: also routine messages; Navidrome's default\n- Debug: detailed messages, for troubleshooting a specific problem\n- Trace: even more detail than Debug": 36,
   Error: 37,
   Warn: 38,
   Info: 39,
@@ -63,7 +63,7 @@ const dict = {
   // NextExplorer
   NextExplorer: 48,
   'NextExplorer Subfolder': 49,
-  'Path within NextExplorer\'s storage to scan for music, starting with the drive name (e.g. "Files/Music"). Required when NextExplorer is selected above.': 50,
+  'Path within NextExplorer\'s storage to scan for music, starting with one of its locations (e.g. "Files/Music"). Required when NextExplorer is selected above.': 50,
   'A NextExplorer subfolder is required when NextExplorer is selected as a music source.': 51,
   'NextExplorer is selected as a music source but has no subfolder configured. Re-run Select Music Sources.': 52,
   // actions/settings.ts, interfaces.ts
@@ -71,6 +71,7 @@ const dict = {
   "Enable Navidrome's Jellyfin API so Jellyfin-compatible music clients can connect. Experimental upstream. Sets ND_JELLYFIN_ENABLED.": 54,
   'Jellyfin API': 55,
   'Jellyfin-compatible API for Jellyfin music clients': 56,
+  "Where your music library is stored. Pick one or more; each is mounted read-only and appears as its own folder in Navidrome's library.\n- NextExplorer: a folder in one of NextExplorer's locations\n- FileBrowser Quantum: a folder in FileBrowser Quantum's storage\n- Nextcloud: a folder in a Nextcloud user's files": 57,
 } as const
 
 /**

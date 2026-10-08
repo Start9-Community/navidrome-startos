@@ -53,7 +53,7 @@ export const inputSpec = InputSpec.of({
   logLevel: Value.select({
     name: i18n('Log Level'),
     description: i18n(
-      'Verbosity of Navidrome logs, viewable via the service Logs tab. Sets ND_LOGLEVEL.',
+      "How much Navidrome writes to the service's Logs tab. Sets ND_LOGLEVEL.\n- Error: errors only\n- Warn: errors and warnings\n- Info: also routine messages; Navidrome's default\n- Debug: detailed messages, for troubleshooting a specific problem\n- Trace: even more detail than Debug",
     ),
     default: 'info',
     values: {

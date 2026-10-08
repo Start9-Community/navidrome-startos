@@ -11,6 +11,9 @@ const { InputSpec, Value } = sdk
 export const inputSpec = InputSpec.of({
   mediaSources: Value.multiselect({
     name: i18n('Music Sources'),
+    description: i18n(
+      "Where your music library is stored. Pick one or more; each is mounted read-only and appears as its own folder in Navidrome's library.\n- NextExplorer: a folder in one of NextExplorer's locations\n- FileBrowser Quantum: a folder in FileBrowser Quantum's storage\n- Nextcloud: a folder in a Nextcloud user's files",
+    ),
     values: {
       nextexplorer: i18n('NextExplorer'),
       filebrowser: i18n('FileBrowser Quantum'),
@@ -22,7 +25,7 @@ export const inputSpec = InputSpec.of({
   nextexplorerSubpath: Value.text({
     name: i18n('NextExplorer Subfolder'),
     description: i18n(
-      'Path within NextExplorer\'s storage to scan for music, starting with the drive name (e.g. "Files/Music"). Required when NextExplorer is selected above.',
+      'Path within NextExplorer\'s storage to scan for music, starting with one of its locations (e.g. "Files/Music"). Required when NextExplorer is selected above.',
     ),
     required: false,
     default: null,
