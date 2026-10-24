@@ -1,6 +1,6 @@
 # Updating the upstream version
 
-Upstream is the `deluan/navidrome` Docker image, pinned by tag in `startos/manifest/index.ts` (`images.navidrome.source.dockerTag`).
+Upstream is the `deluan/navidrome` Docker image, pinned by tag in `startos/manifest/index.ts` (`images.navidrome.source.dockerBuild.buildArgs.IMAGE`) and built through the root `Dockerfile`, which upgrades its CA store.
 
 ## Determining the upstream version
 
@@ -11,6 +11,6 @@ Upstream is the `deluan/navidrome` Docker image, pinned by tag in `startos/manif
 
 ## Applying the bump
 
-1. Edit `images.navidrome.source.dockerTag` in `startos/manifest/index.ts` to the new `deluan/navidrome:<tag>`. Update the confirmation-date comment above it.
+1. Edit `images.navidrome.source.dockerBuild.buildArgs.IMAGE` in `startos/manifest/index.ts` to the new `deluan/navidrome:<tag>`. Update the confirmation-date comment above it.
 2. Bump `startos/versions/current.ts` (or add a new version file if the bump needs a migration — see `versions.md`). Navidrome's version tags map directly onto our version string (`<upstream>:0`).
 3. Rebuild (`start-cli s9pk pack`), install, and verify the web player still loads, logs in with the existing admin account, and the music library (mounted from the configured source(s)) still scans correctly.

@@ -35,11 +35,11 @@
 
 ## Image and Container Runtime
 
-The upstream image, unmodified, running its own entrypoint.
+The upstream image, running its own entrypoint. The root `Dockerfile` upgrades the upstream image's CA store, a temporary layer that comes out once upstream ships an image built on a fixed store.
 
 | Property      | Value                                        |
 | ------------- | -------------------------------------------- |
-| Image         | `deluan/navidrome`                           |
+| Image         | `deluan/navidrome` + root `Dockerfile`       |
 | Architectures | x86_64, aarch64                              |
 | Command       | `sdk.useEntrypoint()` — the Navidrome binary |
 
@@ -179,7 +179,7 @@ The music library is **not** backed up, because it is not this package's data. R
 
 ```yaml
 package_id: navidrome
-image: deluan/navidrome
+image: deluan/navidrome + root Dockerfile (CA store upgrade)
 architectures:
   - x86_64
   - aarch64

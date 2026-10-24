@@ -14,7 +14,9 @@ export const manifest = setupManifest({
   images: {
     navidrome: {
       // Confirmed amd64 + arm64 present 2026-10-07.
-      source: { dockerTag: 'deluan/navidrome:0.64.2' },
+      source: {
+        dockerBuild: { buildArgs: { IMAGE: 'deluan/navidrome:0.64.2' } },
+      },
       arch: ['x86_64', 'aarch64'],
     },
   },
