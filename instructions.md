@@ -64,6 +64,8 @@ The scrobbling toggle alone is not enough to make scrobbles land — you still h
 
 The two tokens must match — Multi-Scrobbler accepts a submission as coming from that source only when its token matches what's configured. This is a one-time, per-user setup step.
 
+Scrobbling doesn't work while Multi-Scrobbler has a Web UI password set: Navidrome can't send that login, so clear it in Multi-Scrobbler with **Clear Web UI Password**.
+
 ## Limitations
 
 Because your music is mounted read-only from another service, Navidrome cannot write tag edits, rename files, or fix file permissions on your library — manage the files themselves from NextExplorer, FileBrowser Quantum or Nextcloud directly.
