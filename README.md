@@ -133,6 +133,8 @@ Deliberately limited to settings with **no equivalent in Navidrome's own admin U
 
 Enabling **Scrobble to Multi-Scrobbler** is not sufficient on its own — a matching token must be entered by hand in both applications' own UIs, as `instructions.md` describes. Symptom of skipping it: scrobbles are submitted and silently rejected.
 
+It also fails while Multi-Scrobbler's **Set Web UI Password** gate is on: StartOS enforces that gate on the bridge address too, and Navidrome's ListenBrainz client sends its own `Authorization: Token` header, so every submission gets `401`.
+
 ### Import Existing Database
 
 For migrating from another Navidrome instance instead of rescanning. Runs only while stopped, since it replaces the SQLite file underneath the daemon, and it is **destructive on the current database with no undo**. Repeating it simply replaces the database again.

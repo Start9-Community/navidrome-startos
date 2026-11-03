@@ -1,17 +1,18 @@
 import { IMPOSSIBLE, VersionInfo } from '@start9labs/start-sdk'
 
 export const current = VersionInfo.of({
-  version: '0.64.2:2',
+  version: '0.64.2:3',
   releaseNotes: {
     en_US:
-      'Stops trusting certificates from a compromised certificate authority (eMudhra).',
+      'Updates the StartOS SDK to 3.1.1. Clarifies that scrobbling to Multi-Scrobbler requires clearing its Web UI password.',
     es_ES:
-      'Deja de confiar en los certificados de una autoridad de certificación comprometida (eMudhra).',
+      'Actualiza el SDK de StartOS a 3.1.1. Aclara que para enviar scrobbles a Multi-Scrobbler hay que borrar su contraseña de la interfaz web.',
     de_DE:
-      'Vertraut Zertifikaten einer kompromittierten Zertifizierungsstelle (eMudhra) nicht mehr.',
+      'Aktualisiert das StartOS-SDK auf 3.1.1. Stellt klar, dass zum Scrobbeln an Multi-Scrobbler dessen Weboberflächen-Passwort gelöscht werden muss.',
     pl_PL:
-      'Przestaje ufać certyfikatom przejętego urzędu certyfikacji (eMudhra).',
-    fr_FR: `Ne fait plus confiance aux certificats d'une autorité de certification compromise (eMudhra).`,
+      'Aktualizuje SDK StartOS do 3.1.1. Wyjaśnia, że przesyłanie scrobbli do Multi-Scrobbler wymaga usunięcia jego hasła interfejsu webowego.',
+    fr_FR:
+      'Met à jour le SDK StartOS vers la version 3.1.1. Précise que l’envoi de scrobbles à Multi-Scrobbler nécessite d’effacer son mot de passe de l’interface web.',
   },
   migrations: {
     up: async ({ effects }) => {},
