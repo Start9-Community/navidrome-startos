@@ -1,4 +1,4 @@
-import { manifest as filebrowserManifest } from 'filebrowser-startos/startos/manifest'
+import { manifest as filebrowserManifest } from 'filebrowser-quantum-startos/startos/manifest'
 import {
   uiHostId as multiScrobblerUiHostId,
   uiPort as multiScrobblerUiPort,

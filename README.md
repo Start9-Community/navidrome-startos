@@ -82,12 +82,12 @@ The environment variables built from it are consumed by Navidrome **only at laun
 
 Four, all optional, defined in `startos/dependencies.ts`. Each is enabled only while the setting that uses it is on; a disabled one places no requirement on the service.
 
-| Dependency        | Kind      | Version range | Enabled when                          | Mount                                              |
-| ----------------- | --------- | ------------- | ------------------------------------- | -------------------------------------------------- |
-| `nextexplorer`    | `exists`  | `>=2.2.7:0`   | selected in **Select Music Sources**  | `data` volume → `/music/nextexplorer`, read-only   |
-| `filebrowser`     | `exists`  | `>=2.63.18:3` | selected in **Select Music Sources**  | `data` volume → `/music/filebrowser`, read-only    |
-| `nextcloud`       | `exists`  | `>=33.0.6:1`  | selected in **Select Music Sources**  | `nextcloud` volume → `/music/nextcloud`, read-only |
-| `multi-scrobbler` | `running` | `>=0.14.2:0`  | **Scrobble to Multi-Scrobbler** is on | none — resolved by bridge address                  |
+| Dependency        | Kind      | Version range               | Enabled when                          | Mount                                              |
+| ----------------- | --------- | --------------------------- | ------------------------------------- | -------------------------------------------------- |
+| `nextexplorer`    | `exists`  | `>=2.2.7:0`                 | selected in **Select Music Sources**  | `data` volume → `/music/nextexplorer`, read-only   |
+| `filebrowser`     | `exists`  | `>=#quantum:2.0.2-stable:3` | selected in **Select Music Sources**  | `data` volume → `/music/filebrowser`, read-only    |
+| `nextcloud`       | `exists`  | `>=33.0.6:1`                | selected in **Select Music Sources**  | `nextcloud` volume → `/music/nextcloud`, read-only |
+| `multi-scrobbler` | `running` | `>=0.14.2:0`                | **Scrobble to Multi-Scrobbler** is on | none — resolved by bridge address                  |
 
 The music sources are `exists` rather than `running` because a bind mount reads the volume off disk and never talks to the service. Multi-Scrobbler is `running` with its own health check, because Navidrome submits scrobbles to it over HTTP.
 
@@ -203,7 +203,7 @@ startos_managed_env_vars:
   - ND_SMARTPLAYLISTREFRESHDELAY
 dependencies:
   - nextexplorer # optional, exists, >=2.2.7:0
-  - filebrowser # optional, exists, >=2.63.18:3
+  - filebrowser # optional, exists, >=#quantum:2.0.2-stable:3
   - nextcloud # optional, exists, >=33.0.6:1
   - multi-scrobbler # optional, running, >=0.14.2:0
 interfaces:

@@ -1,18 +1,18 @@
 import { IMPOSSIBLE, VersionInfo } from '@start9labs/start-sdk'
 
 export const current = VersionInfo.of({
-  version: '0.64.2:3',
+  version: '0.64.2:4',
   releaseNotes: {
     en_US:
-      'Updates the StartOS SDK to 3.1.1. Clarifies that scrobbling to Multi-Scrobbler requires clearing its Web UI password.',
+      'FileBrowser integration now requires FileBrowser Quantum 2.0.2-stable:3 or later; the original File Browser is no longer supported. If you use the original File Browser, switch it in the Marketplace: open File Browser, then under Alternative Implementations choose FileBrowser Quantum and select Switch. Your files and accounts carry over, but back up File Browser first; afterwards, re-apply per-user folder restrictions and access rules, and recreate share links.',
     es_ES:
-      'Actualiza el SDK de StartOS a 3.1.1. Aclara que para enviar scrobbles a Multi-Scrobbler hay que borrar su contraseña de la interfaz web.',
+      'La integración con FileBrowser ahora requiere FileBrowser Quantum 2.0.2-stable:3 o posterior; el File Browser original ya no es compatible. Si usas el File Browser original, cámbialo en el Mercado: abre File Browser y, en Implementaciones alternativas, elige FileBrowser Quantum y selecciona Cambiar. Tus archivos y cuentas se conservan, pero haz antes una copia de seguridad de File Browser; después, vuelve a aplicar las restricciones de carpeta por usuario y las reglas de acceso, y crea de nuevo los enlaces compartidos.',
     de_DE:
-      'Aktualisiert das StartOS-SDK auf 3.1.1. Stellt klar, dass zum Scrobbeln an Multi-Scrobbler dessen Weboberflächen-Passwort gelöscht werden muss.',
+      'Die FileBrowser-Integration erfordert jetzt FileBrowser Quantum 2.0.2-stable:3 oder neuer; der ursprüngliche File Browser wird nicht mehr unterstützt. Wenn Sie den ursprünglichen File Browser verwenden, wechseln Sie im Marktplatz: Öffnen Sie File Browser, wählen Sie unter Alternative Implementierungen FileBrowser Quantum und anschließend Wechseln. Ihre Dateien und Konten bleiben erhalten, aber sichern Sie File Browser vorher; richten Sie danach benutzerbezogene Ordnerbeschränkungen und Zugriffsregeln erneut ein und erstellen Sie Freigabelinks neu.',
     pl_PL:
-      'Aktualizuje SDK StartOS do 3.1.1. Wyjaśnia, że przesyłanie scrobbli do Multi-Scrobbler wymaga usunięcia jego hasła interfejsu webowego.',
+      'Integracja z FileBrowser wymaga teraz FileBrowser Quantum 2.0.2-stable:3 lub nowszego; oryginalny File Browser nie jest już obsługiwany. Jeśli używasz oryginalnego File Browser, przełącz go w Sklepie: otwórz File Browser, w sekcji Alternatywne implementacje wybierz FileBrowser Quantum i kliknij Przełącz. Twoje pliki i konta zostaną zachowane, ale najpierw wykonaj kopię zapasową File Browser; potem ponownie ustaw ograniczenia folderów przypisane do użytkowników i reguły dostępu oraz utwórz nowe linki udostępniania.',
     fr_FR:
-      'Met à jour le SDK StartOS vers la version 3.1.1. Précise que l’envoi de scrobbles à Multi-Scrobbler nécessite d’effacer son mot de passe de l’interface web.',
+      'L’intégration FileBrowser nécessite désormais FileBrowser Quantum 2.0.2-stable:3 ou une version ultérieure ; le File Browser d’origine n’est plus pris en charge. Si vous utilisez le File Browser d’origine, changez-le dans la Bibliothèque de services : ouvrez File Browser, puis sous Implémentations alternatives choisissez FileBrowser Quantum et sélectionnez Changer. Vos fichiers et comptes sont conservés, mais sauvegardez d’abord File Browser ; ensuite, réappliquez les restrictions de dossier par utilisateur et les règles d’accès, puis recréez les liens de partage.',
   },
   migrations: {
     up: async ({ effects }) => {},
